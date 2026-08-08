@@ -1,19 +1,19 @@
 ---
-title: "Engineering updates"
-description: "Open technical notes on aerospace engineering and ML."
+title: "Aerospace engineering and applied AI"
+description: "Projects and technical notes exploring machine learning and AI across aerospace engineering."
 draft: false
 ---
 
 <section class="space-hero">
-  <p class="space-eyebrow">Mission log · Aerospace engineering + ML</p>
-  <h1>Notes from the edge of engineering.</h1>
-  <p class="space-lede">A technical logbook of the models, simulations, and verification work behind reliable aerospace systems—plus the machine-learning tools that help make them better.</p>
+  <p class="space-eyebrow">Aerospace engineering · Machine learning · AI</p>
+  <h1>Aerospace engineering meets applied AI.</h1>
+  <p class="space-lede">I’m Allan Olivito, an aerospace engineer exploring how machine learning and AI can be applied across the aerospace field. Here I share what I learn and turn it into practical engineering projects.</p>
   <div class="space-links">
-    <a href="/posts/">Browse updates →</a>
+    <a href="/posts/">Explore the work →</a>
     <a href="/about/">About me →</a>
   </div>
 </section>
 
-Every update is designed to be concrete, reproducible, and useful for real engineering work.
+This site follows the process behind each project: the problem, the engineering decisions, the implementation, and what I learned along the way.
 
-Topics include flight dynamics, orbital mechanics, GNC, simulation and verification workflows, and practical ML integrations.
+The applications may span different aerospace disciplines. The common thread is using engineering fundamentals, simulation, and data-driven tools to understand and build better systems.

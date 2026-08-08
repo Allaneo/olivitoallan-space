@@ -15,25 +15,27 @@ aiDiscuss:
 
 ## About me
 
-I am an aerospace engineer focused on flight dynamics, orbital mechanics, and GNC systems modeling, with a growing focus on integrating machine learning into aerospace engineering workflows.
+I am an aerospace engineer exploring how machine learning and artificial intelligence can be applied across the aerospace field.
 
-My work is built around technical depth and engineering discipline: simulation fidelity, verification and validation, and clear documentation of assumptions and tradeoffs.
+I am interested in the complete engineering process: understanding a problem, building a model, testing assumptions, validating results, and turning the work into a practical project. Rather than limiting that process to a single aerospace discipline, I want to explore where data-driven methods can add real engineering value.
 
 ### What you will find here
 
-I publish technical updates about:
+I use this site to share:
 
-1. Courses and what I actually applied from them.
-2. Engineering projects and implementation decisions.
-3. Industry notes that matter for aerospace and ML practitioners.
+1. Aerospace engineering projects and the decisions behind them.
+2. What I learn about machine learning and AI, and how I apply it.
+3. Models, simulations, validation work, and lessons from the development process.
 
 Each topic is published in both English and Spanish.
 
 ### Background
 
-- Aerospace Engineering, Universidad Nacional de La Plata.
+- Aerospace Engineer, Universidad Nacional de La Plata.
 - 6-DOF orbital simulation development in MATLAB/Simulink.
 - Team lead experience in mechanical, aerodynamic, and flight-dynamics work in CanSat competition projects.
+
+These experiences are my starting point, not the boundaries of my work. Future projects may move across different aerospace disciplines while keeping the same focus on sound engineering and applied ML/AI.
 
 ### Contact
 

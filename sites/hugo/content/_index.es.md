@@ -1,19 +1,19 @@
 ---
-title: "Notas de ingeniería"
-description: "Notas técnicas abiertas sobre ingeniería aeroespacial y ML."
+title: "Ingeniería aeroespacial e IA aplicada"
+description: "Proyectos y notas técnicas sobre la aplicación de machine learning e IA en la ingeniería aeroespacial."
 draft: false
 ---
 
 <section class="space-hero">
-  <p class="space-eyebrow">Registro de misión · Ingeniería aeroespacial + ML</p>
-  <h1>Notas desde la frontera de la ingeniería.</h1>
-  <p class="space-lede">Un cuaderno de bitácora técnico de los modelos, simulaciones y trabajo de verificación detrás de sistemas aeroespaciales confiables, además de las herramientas de aprendizaje automático que ayudan a mejorarlos.</p>
+  <p class="space-eyebrow">Ingeniería aeroespacial · Machine learning · IA</p>
+  <h1>Ingeniería aeroespacial e IA aplicada.</h1>
+  <p class="space-lede">Soy Allan Olivito, ingeniero aeroespacial. Exploro cómo el machine learning y la inteligencia artificial pueden aplicarse en distintas áreas del sector aeroespacial. Acá comparto lo que aprendo y lo convierto en proyectos concretos de ingeniería.</p>
   <div class="space-links">
-    <a href="/es/posts/">Ver publicaciones →</a>
-    <a href="/es/about/">Sobre mí →</a>
+    <a href="/es/posts/">Explorar proyectos →</a>
+    <a href="/es/sobre-m%C3%AD/">Sobre mí →</a>
   </div>
 </section>
 
-Cada actualización está diseñada para ser concreta, reproducible y útil para el trabajo de ingeniería real.
+Este sitio muestra el proceso detrás de cada proyecto: el problema, las decisiones de ingeniería, la implementación y lo que aprendí en el camino.
 
-Los temas incluyen dinámica de vuelo, mecánica orbital, GNC, flujos de trabajo de simulación y verificación, e integraciones prácticas de ML.
+Las aplicaciones pueden abarcar distintas disciplinas aeroespaciales. El hilo conductor es combinar fundamentos de ingeniería, simulación y herramientas basadas en datos para comprender y construir mejores sistemas.
