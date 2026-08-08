@@ -15,18 +15,22 @@ categories: ["updates"]
 
 I'm Allan, an aerospace engineer.
 
-Over the past few years, I have taken part in projects and experiences that left me with a lot to share, from the AAS CanSat Competition to developing a 6-DoF simulator for LEO satellites.
+Over the past few years, I have taken part in projects and experiences that I truly enjoyed and that left me with plenty to share, from the AAS CanSat Competition to developing a 6-DoF simulator for LEO satellites.
 
-At the same time, I am deepening my knowledge of machine learning and artificial intelligence. My goal is not to stop at theory, but to apply what I learn in engineering projects.
+At the same time, I am deepening my knowledge of machine learning and artificial intelligence. It is a field that genuinely excites me, and my goal is not to stop at theory, but to apply what I learn in engineering projects.
 
-I opened this space to bring those two things together: developing new ideas and sharing both the results and the experiences and lessons that emerge along the way.
+I created this space to bring those two things together: developing new ideas and sharing both the results and the experiences and lessons that emerge along the way.
 
-Writing about each project will also push me to understand it better, organize what I learned, and make it available to anyone who might find it useful.
+It also gives me a reason to understand each project better, organize what I learned, and make it available to anyone who might find it useful.
 
-Alongside projects, I will probably share news, research, or technological developments that catch my attention. The idea will not be simply to summarize them, but to consider why they might matter and what implications they could have for engineering and the aerospace sector.
+If anything I share raises a question, prompts a comment, or makes you want to offer feedback, you can reach me through LinkedIn or email. I am always open to exchanging ideas and hearing other perspectives.
+
+Alongside projects, I will probably share news, research, or technological developments that catch my attention. I do not want to simply summarize them, but to consider why they might matter and what implications they could have for engineering and the aerospace sector.
 
 There will also be room for smaller experiments, tools I am testing, and questions for which I do not yet have a definitive answer.
 
-I do not plan to limit the blog to one subject. There will be simulation, orbital mechanics, aerodynamics, structures, control, ML, AI, and probably other topics I have not planned yet.
+I do not want to limit this space to one subject. There will be simulation, orbital mechanics, aerodynamics, structures, control, ML, AI, and probably other topics I have not planned yet.
 
-This will be a record of that journey. If you share any of these interests, I hope you find something useful or interesting here.
+This space will be a way to record and share that journey as it happens. I do not know exactly which projects will appear later, but that is part of the idea.
+
+If you share this curiosity about engineering and technology, this space is for you too.
