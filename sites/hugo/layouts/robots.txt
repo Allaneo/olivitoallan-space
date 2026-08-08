@@ -1,0 +1,9 @@
+{{- if eq hugo.Environment "production" -}}
+User-agent: *
+Allow: /
+Sitemap: {{ .Site.BaseURL }}sitemap.xml
+{{- else -}}
+User-agent: *
+Disallow: /
+{{- end -}}
+

@@ -1,0 +1,6 @@
+baseURL = "https://preview.olivitoallan.space/"
+buildDrafts = true
+buildFuture = true
+
+[params]
+  gtm_id = ""

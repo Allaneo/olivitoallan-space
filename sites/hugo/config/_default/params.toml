@@ -1,0 +1,103 @@
+# Blowfish theme options:
+# https://blowfish.page/docs/configuration/#theme-parameters
+
+colorScheme = "blowfish"
+defaultAppearance = "dark"
+autoSwitchAppearance = true
+enableSearch = true
+enableCodeCopy = true
+mainSections = ["posts"]
+smartTOC = true
+smartTOCHideUnfocusedChildren = true
+disableImageOptimization = false
+disableTextInHeader = false
+
+# Optional production-only Google Tag Manager container ID.
+gtm_id = ""
+
+[header]
+  layout = "fixed-fill"
+
+[footer]
+  showCopyright = true
+  showThemeAttribution = true
+  showAppearanceSwitcher = true
+  showScrollToTop = true
+
+[homepage]
+  layout = "page"
+  showRecent = true
+  showRecentItems = 6
+  showMoreLink = true
+  showMoreLinkDest = "/posts/"
+  cardView = true
+  cardViewScreenWidth = false
+  layoutBackgroundBlur = false
+
+[article]
+  showDate = true
+  showDateUpdated = false
+  showAuthor = true
+  showAuthorBottom = true
+  showHero = false
+  heroStyle = "basic"
+  showBreadcrumbs = false
+  showDraftLabel = true
+  showEdit = false
+  editAppendPath = true
+  showHeadingAnchors = true
+  showPagination = true
+  invertPagination = false
+  showReadingTime = true
+  showTableOfContents = true
+  showRelatedContent = false
+  relatedContentLimit = 3
+  showTaxonomies = true
+  showWordCount = false
+  showSummary = true
+  sharingLinks = ["linkedin"]
+
+[list]
+  showHero = false
+  showBreadcrumbs = false
+  showSummary = true
+  showTableOfContents = false
+  groupByYear = true
+  cardView = false
+  constrainItemsWidth = false
+
+[taxonomy]
+  showTermCount = true
+  showHero = false
+  showBreadcrumbs = false
+  showTableOfContents = false
+  cardView = false
+
+[term]
+  showHero = false
+  showBreadcrumbs = false
+  showTableOfContents = true
+  groupByYear = false
+  cardView = false
+
+# Optional article action panel. It remains dormant until explicitly enabled.
+[aiDiscuss]
+  enabled = false
+  default = "chatgpt"
+  chatgptModel = "gpt-4o"
+  providers = ["chatgpt", "claude", "perplexity"]
+  labelMain = "Discuss with AI"
+  labelChatGPT = "Open in ChatGPT"
+  labelClaude = "Open in Claude"
+  labelPerplexity = "Open in Perplexity"
+  prompt = "Help me understand and apply the ideas from this page: {URL}"
+
+[disclosure]
+  enabled = false
+  text = ""
+
+[verification]
+  google = ""
+  bing = ""
+  pinterest = ""
+  yandex = ""

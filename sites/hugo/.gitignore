@@ -1,0 +1,8 @@
+/public/
+/resources/
+.hugo_build.lock
+
+# Hugo logs and traces
+.hugo-logs/
+*.log
+*.trace

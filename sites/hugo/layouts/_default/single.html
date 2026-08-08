@@ -1,0 +1,88 @@
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "single" }}
+  <article>
+    {{/* Hero */}}
+    {{ if .Params.showHero | default (site.Params.article.showHero | default false) }}
+      {{ $heroStyle := .Params.heroStyle }}
+      {{ if not $heroStyle }}{{ $heroStyle = site.Params.article.heroStyle }}{{ end }}
+      {{ $heroStyle := print "hero/" $heroStyle ".html" }}
+      {{ if templates.Exists ( printf "partials/%s" $heroStyle ) }}
+        {{ partial $heroStyle . }}
+      {{ else }}
+        {{ partial "hero/basic.html" . }}
+      {{ end }}
+    {{ end }}
+
+    {{/* Header */}}
+    <header id="single_header" class="mt-5 max-w-prose">
+      {{ if .Params.showBreadcrumbs | default (site.Params.article.showBreadcrumbs | default false) }}
+        {{ partial "breadcrumbs.html" . }}
+      {{ end }}
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        {{ .Title | emojify }}
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
+      </div>
+      {{/* Audio player appears after article metadata when configured. */}}
+      {{ partial "audio-player.html" . }}
+    </header>
+
+    {{/* Body */}}
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      <div class="min-w-0 min-h-0 max-w-fit">
+        {{ .Content | emojify }}
+      </div>
+      
+      <div class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+        <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky {{ cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}">
+          {{ if and (site.Params.article.showTableOfContents | default false) (in .TableOfContents "<ul") }}
+            {{ partial "toc.html" . }}
+          {{ end }}
+          {{ if .Params.showRelatedContent | default (site.Params.article.showRelatedContent | default false) }}
+            {{ partial "related.html" . }}
+          {{ end }}
+          {{ if site.Params.aiDiscuss.enabled | default false }}
+            {{ partial "action-float.html" . }}
+          {{ end }}
+        </div>
+      </div>
+    </section>
+
+    {{ if site.Params.aiDiscuss.enabled | default false }}
+      {{ partial "action-panel.html" . }}
+    {{ end }}
+
+    {{/* Tags and categories */}}
+    {{ if .Params.showTaxonomies | default (site.Params.article.showTaxonomies | default false) }}
+      {{ partial "article-meta/taxonomy.html" . }}
+    {{ end }}
+
+    {{/* Author */}}
+    {{ if .Params.showAuthorBottom | default (site.Params.article.showAuthorBottom | default false) }}
+      {{ template "SingleAuthor" . }}
+    {{ end }}
+
+    {{/* Series navigation */}}
+    {{ if .Params.showSeriesNavigation | default (site.Params.article.showSeriesNavigation | default true) }}
+      {{ partial "series/series.html" . }}
+    {{ end }}
+
+    {{/* Pagination */}}
+    {{ if .Params.showPagination | default (site.Params.article.showPagination | default true) }}
+      {{ partial "article-pagination.html" . }}
+    {{ end }}
+
+  </article>
+
+  {{ if site.Params.aiDiscuss.enabled | default false }}
+    {{ partial "action-panel-script.html" . }}
+  {{ end }}
+
+{{ end }}
+
+{{ define "SingleAuthor" }}
+  {{ if .Params.showAuthor | default (site.Params.article.showAuthor | default true) }}
+    {{ partial "author.html" . }}
+  {{ end }}
+{{ end }}

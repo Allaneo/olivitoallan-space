@@ -1,0 +1,208 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Staging static site on S3 + CloudFront (OAC) for staging subdomain
+
+Parameters:
+  StagingDomainName:
+    Type: String
+    Description: Staging subdomain (for example, staging.example.org)
+  AcmCertificateArn:
+    Type: String
+    Description: ACM certificate ARN in us-east-1 for the staging domain
+  RootHostedZoneId:
+    Type: String
+    Description: Hosted Zone ID for the root domain
+
+Resources:
+  # S3 Bucket for staging site
+  StagingBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${StagingDomainName}-site-${AWS::AccountId}"
+      VersioningConfiguration: { Status: Enabled }
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  # Origin Access Control for CloudFront -> S3
+  StagingOriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub "${StagingDomainName}-oac"
+        Description: OAC for staging S3 origin
+        SigningBehavior: always
+        SigningProtocol: sigv4
+        OriginAccessControlOriginType: s3
+
+  # Pretty URLs CloudFront Function
+  StagingPrettyUrlsFunction:
+    Type: AWS::CloudFront::Function
+    Properties:
+      Name: !Sub "${AWS::StackName}-staging-pretty-urls"
+      AutoPublish: true
+      FunctionConfig:
+        Comment: "Append index.html for pretty URLs on staging"
+        Runtime: cloudfront-js-1.0
+      FunctionCode: |
+        function handler(event) {
+          var req = event.request;
+          var uri = req.uri || '/';
+          if (uri.endsWith('/')) {
+            req.uri = uri + 'index.html';
+          } else if (!uri.includes('.')) {
+            req.uri = uri + '/index.html';
+          }
+          return req;
+        }
+
+  # CloudFront Distribution for staging
+  StagingDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Comment: !Sub "Staging site for ${StagingDomainName}"
+        DefaultRootObject: index.html
+        Aliases:
+          - !Ref StagingDomainName
+        Origins:
+          - Id: stagingS3Origin
+            DomainName: !GetAtt StagingBucket.RegionalDomainName
+            S3OriginConfig: {}
+            OriginAccessControlId: !Ref StagingOriginAccessControl
+        DefaultCacheBehavior:
+          TargetOriginId: stagingS3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods: [GET, HEAD]
+          CachedMethods: [GET, HEAD]
+          Compress: true
+          # Staging-optimized cache policy: shorter TTL for faster iteration
+          CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad  # CachingDisabled policy for staging
+          # Add response headers policy to set X-Robots-Tag for staging (noindex)
+          ResponseHeadersPolicyId: !Ref StagingNoIndexHeadersPolicy
+          FunctionAssociations:
+            - EventType: viewer-request
+              FunctionARN: !GetAtt StagingPrettyUrlsFunction.FunctionARN
+        ViewerCertificate:
+          AcmCertificateArn: !Ref AcmCertificateArn
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2021
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 404
+            ResponsePagePath: /404.html
+            ErrorCachingMinTTL: 1  # Very short error caching for staging
+          - ErrorCode: 404
+            ResponseCode: 404
+            ResponsePagePath: /404.html
+            ErrorCachingMinTTL: 1
+
+  # S3 Bucket Policy for CloudFront OAC
+  StagingBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref StagingBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowCloudFrontOAC
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: "s3:GetObject"
+            Resource: !Sub "${StagingBucket.Arn}/*"
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${StagingDistribution}"
+
+  # Route53 DNS Records in existing hosted zone
+  StagingDNSRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref RootHostedZoneId
+      Name: !Ref StagingDomainName
+      Type: A
+      AliasTarget:
+        DNSName: !GetAtt StagingDistribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2  # CloudFront hosted zone ID
+
+  StagingDNSRecordIPv6:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref RootHostedZoneId
+      Name: !Ref StagingDomainName
+      Type: AAAA
+      AliasTarget:
+        DNSName: !GetAtt StagingDistribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2  # CloudFront hosted zone ID
+
+  # CloudWatch Alarms for staging monitoring
+  StagingCloudFront4xxErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "${AWS::StackName}-Staging-CloudFront-4xx-Errors"
+      AlarmDescription: "High 4xx error rate on staging CloudFront distribution"
+      MetricName: 4xxErrorRate
+      Namespace: AWS/CloudFront
+      Statistic: Average
+      Period: 300
+      EvaluationPeriods: 2
+      Threshold: 10  # Higher threshold for staging
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: DistributionId
+          Value: !Ref StagingDistribution
+      TreatMissingData: notBreaching
+
+  # Response Headers Policy to prevent indexing on staging
+  StagingNoIndexHeadersPolicy:
+    Type: AWS::CloudFront::ResponseHeadersPolicy
+    Properties:
+      ResponseHeadersPolicyConfig:
+        Name: !Sub "${StagingDomainName}-noindex-noarchive"
+        Comment: "Add X-Robots-Tag to disallow indexing on staging"
+        CustomHeadersConfig:
+          Items:
+            - Header: X-Robots-Tag
+              Value: noindex, nofollow, noarchive
+              Override: true
+
+  StagingCloudFront5xxErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "${AWS::StackName}-Staging-CloudFront-5xx-Errors"
+      AlarmDescription: "High 5xx error rate on staging CloudFront distribution"
+      MetricName: 5xxErrorRate
+      Namespace: AWS/CloudFront
+      Statistic: Average
+      Period: 300
+      EvaluationPeriods: 2
+      Threshold: 5  # Higher threshold for staging
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: DistributionId
+          Value: !Ref StagingDistribution
+      TreatMissingData: notBreaching
+
+Outputs:
+  StagingBucketName:
+    Description: Name of the staging S3 bucket
+    Value: !Ref StagingBucket
+    Export:
+      Name: !Sub "${AWS::StackName}-StagingBucketName"
+  StagingDistributionId:
+    Description: Staging CloudFront Distribution Id
+    Value: !Ref StagingDistribution
+    Export:
+      Name: !Sub "${AWS::StackName}-StagingDistributionId"
+  StagingDomainName:
+    Description: Staging domain name
+    Value: !Ref StagingDomainName
+  StagingURL:
+    Description: Staging site URL
+    Value: !Sub "https://${StagingDomainName}"

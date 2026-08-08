@@ -1,0 +1,4 @@
+{{- /* Only inject GTM in production */ -}}
+{{ if eq hugo.Environment "production" }}
+  {{- partial "gtm.html" . -}}
+{{ end }}

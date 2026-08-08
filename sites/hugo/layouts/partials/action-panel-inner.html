@@ -1,0 +1,56 @@
+<div class="bf-action-group">
+  <h3 id="ai-discuss-heading" class="bf-action-label">
+    <span class="bf-action-label__icon" aria-hidden="true">💬</span>
+    Discuss with your AI
+  </h3>
+
+  <div class="bf-pill-row">
+    <a class="bf-pill bf-pill--brand bf-pill--chatgpt"
+       href="#" data-provider="chatgpt"
+       target="_blank" rel="noopener"
+       aria-label="Open this article in ChatGPT">
+      {{ partial "icon.html" "chatgpt" }} <span class="label">ChatGPT</span>
+    </a>
+
+    <a class="bf-pill bf-pill--brand bf-pill--claude"
+       href="#" data-provider="claude"
+       target="_blank" rel="noopener"
+       aria-label="Open this article in Claude">
+      {{ partial "icon.html" "claude" }} <span class="label">Claude</span>
+    </a>
+
+    <a class="bf-pill bf-pill--brand bf-pill--perplexity"
+       href="#" data-provider="perplexity"
+       target="_blank" rel="noopener"
+       aria-label="Open this article in Perplexity">
+      {{ partial "icon.html" "perplexity" }} <span class="label">Perplexity</span>
+    </a>
+  </div>
+</div>
+
+<hr class="bf-action-divider" aria-hidden="true">
+
+<div class="bf-action-group">
+  <h3 id="share-heading" class="bf-action-label">
+    <span class="bf-action-label__icon" aria-hidden="true">🔗</span>
+    Share this article
+  </h3>
+
+  <div class="bf-pill-row">
+    <a class="bf-pill bf-pill--outline"
+       href="https://www.linkedin.com/shareArticle?mini=true&url={{ .Permalink | urlquery }}&title={{ .Title | urlquery }}"
+       target="_blank" rel="noopener"
+       aria-label="Share this article on LinkedIn">
+      {{ partial "icon.html" "linkedin" }} <span class="label">LinkedIn</span>
+    </a>
+
+    <a class="bf-pill bf-pill--outline"
+       href="https://x.com/intent/tweet?url={{ .Permalink | urlquery }}&text={{ .Title | urlquery }}"
+       target="_blank" rel="noopener"
+       aria-label="Share this article on X">
+      {{ partial "icon.html" "x-twitter" }} <span class="label">X</span>
+    </a>
+  </div>
+</div>
+
+

@@ -1,0 +1,163 @@
+{{- /* Spacy Dual-Mode Canvas Engine: Deep Space (Dark) & Stratospheric Launch Plumes (Light) */ -}}
+<canvas id="spacy-starfield" aria-hidden="true" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -999; opacity: 0.88; transition: opacity 0.5s ease;"></canvas>
+
+<script>
+(function() {
+  'use strict';
+
+  var canvas = document.getElementById('spacy-starfield');
+  if (!canvas) return;
+
+  // Move canvas directly to document.body root to guarantee canvas is 100% behind all content stacking contexts
+  if (canvas.parentNode !== document.body) {
+    document.body.insertBefore(canvas, document.body.firstChild);
+  }
+
+  var ctx = canvas.getContext('2d', { alpha: true });
+  if (!ctx) return;
+
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var width = 0;
+  var height = 0;
+  var dpr = 1;
+  var isDark = true;
+  var isRunning = false;
+  var particles = [];
+  var PARTICLE_COUNT = 75;
+
+  var STAR_COLORS_DARK = ['#ffffff', '#e0f2fe', '#bae6fd', '#38bdf8', '#c084fc', '#fef08a'];
+  var LAUNCH_COLORS_LIGHT = ['#0284c7', '#38bdf8', '#6366f1', '#bae6fd', '#ffffff'];
+
+  function updateTheme() {
+    isDark = document.documentElement.classList.contains('dark');
+  }
+
+  function initParticles() {
+    particles = [];
+    var count = Math.min(PARTICLE_COUNT, Math.floor((width * height) / 9000));
+    var colors = isDark ? STAR_COLORS_DARK : LAUNCH_COLORS_LIGHT;
+
+    for (var i = 0; i < count; i++) {
+      if (isDark) {
+        // Dark Mode: Deep Space Twinkling Stars
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.3 + 0.4,
+          alpha: Math.random() * 0.7 + 0.3,
+          twinkleSpeed: (Math.random() * 0.015 + 0.005) * (Math.random() < 0.5 ? 1 : -1),
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+      } else {
+        // Light Mode: Ascending Stratospheric Rocket Launch Exhaust & Solar Glints
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 2.2 + 0.8,
+          alpha: Math.random() * 0.55 + 0.2,
+          vy: -(Math.random() * 0.4 + 0.15), // Gentle upward launch drift
+          vx: (Math.random() - 0.5) * 0.1,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+      }
+    }
+  }
+
+  function resize() {
+    width = window.innerWidth || document.documentElement.clientWidth;
+    height = window.innerHeight || document.documentElement.clientHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.scale(dpr, dpr);
+
+    updateTheme();
+    initParticles();
+    if (prefersReducedMotion) drawStatic();
+  }
+
+  function drawStatic() {
+    ctx.clearRect(0, 0, width, height);
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = p.alpha;
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function loop() {
+    if (!isRunning || prefersReducedMotion) return;
+
+    ctx.clearRect(0, 0, width, height);
+
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+
+      if (isDark) {
+        // Twinkle update for dark mode stars
+        p.alpha += p.twinkleSpeed;
+        if (p.alpha >= 0.95 || p.alpha <= 0.2) {
+          p.twinkleSpeed = -p.twinkleSpeed;
+        }
+      } else {
+        // Upward stratospheric launch drift update
+        p.y += p.vy;
+        p.x += p.vx;
+
+        // Wrap around at top of sky
+        if (p.y < -10) {
+          p.y = height + 10;
+          p.x = Math.random() * width;
+        }
+      }
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = Math.max(0.1, Math.min(1, p.alpha));
+      ctx.fill();
+    }
+
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(loop);
+  }
+
+  function start() {
+    if (isRunning || prefersReducedMotion) return;
+    isRunning = true;
+    requestAnimationFrame(loop);
+  }
+
+  function stop() {
+    isRunning = false;
+  }
+
+  // Initialization
+  resize();
+  start();
+
+  // Tab visibility optimization
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) stop();
+    else start();
+  });
+
+  window.addEventListener('resize', resize, { passive: true });
+
+  var observer = new MutationObserver(function() {
+    updateTheme();
+    initParticles();
+    if (prefersReducedMotion) drawStatic();
+  });
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+})();
+</script>

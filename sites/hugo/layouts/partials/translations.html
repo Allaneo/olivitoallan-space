@@ -1,0 +1,12 @@
+{{- /* Sleek Inline Sci-Fi Language Switcher (Replaces Dropdown Menu) */ -}}
+{{ if .IsTranslated }}
+  <div class="space-lang-switcher" role="navigation" aria-label="Language selector">
+    {{ range .AllTranslations }}
+      <a href="{{ .RelPermalink }}"
+         class="space-lang-pill {{ if eq $.Lang .Language.Lang }}active{{ end }}"
+         title="{{ .Language.Label | default (upper .Language.Lang) }}">
+        {{ upper .Language.Lang }}
+      </a>
+    {{ end }}
+  </div>
+{{ end }}

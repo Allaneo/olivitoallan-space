@@ -1,0 +1,23 @@
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "single" }}
+  <article>
+    <header id="single_header" class="mt-5 max-w-prose">
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        {{ .Title | emojify }}
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
+      </div>
+    </header>
+
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert">
+      <div class="min-w-0 min-h-0 max-w-fit">
+        <div class="article-content max-w-prose">
+          {{ .Content | emojify }}
+        </div>
+      </div>
+    </section>
+  </article>
+{{ end }}
+
+

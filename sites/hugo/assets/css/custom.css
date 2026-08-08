@@ -1,0 +1,481 @@
+/*
+ * Spacy Aerospace Design System
+ * Visual styling enhancements for deep-space atmosphere, stratospheric launch & telemetry elements.
+ */
+
+:root {
+  --site-accent: #0284c7;
+  --site-accent-hover: #0369a1;
+  --site-accent-violet: #6366f1;
+  --site-panel: #ffffff;
+  --site-panel-border: rgba(186, 230, 253, 0.85);
+  --site-heading: #0f172a;
+  --site-body: #334155;
+  --font-heading: 'Space Grotesk', Inter, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+}
+
+.dark {
+  --site-panel: #0d1726;
+  --site-panel-border: rgba(56, 189, 248, 0.22);
+  --site-heading: #f8fafc;
+  --site-body: #cbd5e1;
+  --site-accent: #38bdf8;
+  --site-accent-hover: #7dd3fc;
+  --site-accent-violet: #c084fc;
+}
+
+body {
+  position: relative;
+  z-index: 0;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.75;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+/* Stacking Context Isolation: Guarantees Canvas Particles are 100% BEHIND Content & Text Boxes */
+#site-header,
+.header-solid-bg,
+main,
+#main-content,
+#single_header,
+.space-hero,
+article,
+.prose,
+.bf-action-card,
+.ai-note,
+blockquote,
+footer#site-footer {
+  position: relative;
+  z-index: 10;
+}
+
+/* Light theme: Daytime Stratospheric Space Launch Observatory */
+html:not(.dark) body {
+  background-color: #f0f9ff;
+  background-image:
+    radial-gradient(ellipse 100% 60% at 50% -10%, rgba(56, 189, 248, 0.25), transparent 70%),
+    radial-gradient(ellipse 80% 50% at 85% 40%, rgba(14, 165, 233, 0.18), transparent 60%),
+    radial-gradient(ellipse 60% 60% at 15% 75%, rgba(99, 102, 241, 0.12), transparent 65%),
+    radial-gradient(circle at 50% 100%, rgba(224, 242, 254, 0.5), transparent);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Dark mode: Deep space nebulae & glowing atmospheric void */
+html.dark body {
+  background-color: #030712;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.22), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 85% 60%, rgba(14, 165, 233, 0.16), transparent 70%),
+    radial-gradient(ellipse 50% 50% at 15% 75%, rgba(168, 85, 247, 0.14), transparent 70%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Glassmorphism Header & Navigation Bar */
+.header-solid-bg {
+  border-bottom: 1px solid rgba(2, 132, 199, 0.25);
+  background: #f0f9ff;
+  box-shadow: 0 4px 20px rgba(2, 132, 199, 0.08);
+  contain: layout paint;
+}
+
+html.dark .header-solid-bg {
+  border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+  background: #030712;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6), 0 1px 20px rgba(56, 189, 248, 0.2);
+}
+
+header a {
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+html:not(.dark) header a:hover {
+  color: #0284c7;
+  text-shadow: 0 0 10px rgba(2, 132, 199, 0.4);
+}
+
+html.dark header a:hover {
+  color: var(--site-accent);
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+}
+
+/* Inline Sci-Fi Language Switcher (Replaces Dropdown Menu) */
+.space-lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.2rem 0.3rem;
+  border: 1px solid var(--site-panel-border);
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.08);
+}
+
+.space-lang-pill {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  color: var(--site-body);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+html:not(.dark) .space-lang-pill.active {
+  background: #0284c7;
+  color: #ffffff !important;
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
+}
+
+html.dark .space-lang-pill.active {
+  background: var(--site-accent);
+  color: #030712 !important;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+
+.space-lang-pill:not(.active):hover {
+  color: var(--site-accent) !important;
+  background: rgba(56, 189, 248, 0.18);
+}
+
+/* Space Hero Banner */
+.space-hero {
+  position: relative;
+  overflow: hidden;
+  margin: 1.5rem 0 2.5rem;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  border: 1px solid var(--site-panel-border);
+  border-radius: 1.25rem;
+  background: #ffffff;
+  box-shadow: 0 15px 40px rgba(2, 132, 199, 0.1);
+  contain: layout paint;
+}
+
+html.dark .space-hero {
+  background: #0d1726;
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Sci-fi Telemetry Eyebrow */
+.space-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid rgba(2, 132, 199, 0.35);
+  border-radius: 999px;
+  background: rgba(2, 132, 199, 0.08);
+  color: #0284c7;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+html.dark .space-eyebrow {
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--site-accent);
+}
+
+.space-eyebrow::before {
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: #0284c7;
+  box-shadow: 0 0 8px #0284c7;
+  content: "";
+}
+
+html.dark .space-eyebrow::before {
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+}
+
+/* Starlight / Solar Title Gradient */
+.space-hero h1 {
+  max-width: 20ch;
+  margin: 0 0 1rem;
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.08;
+}
+
+html:not(.dark) .space-hero h1 {
+  background: linear-gradient(135deg, #0f172a 0%, #0284c7 60%, #4338ca 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html.dark .space-hero h1 {
+  background: linear-gradient(135deg, #ffffff 30%, #7dd3fc 70%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.space-lede {
+  position: relative;
+  z-index: 1;
+  max-width: 62ch;
+  margin: 1rem 0 0;
+  color: var(--site-body);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.space-links {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.8rem;
+}
+
+.space-links a {
+  padding: 0.65rem 1.25rem;
+  border: 1px solid var(--site-panel-border);
+  border-radius: 999px;
+  background: var(--site-panel);
+  color: var(--site-heading);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform, box-shadow;
+}
+
+html:not(.dark) .space-links a:first-child {
+  border-color: #0284c7;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  box-shadow: 0 4px 15px rgba(2, 132, 199, 0.35);
+  color: #ffffff;
+}
+
+html.dark .space-links a:first-child {
+  border-color: #38bdf8;
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  box-shadow: 0 4px 15px rgba(56, 189, 248, 0.35);
+  color: #030712;
+}
+
+.space-links a:hover {
+  border-color: var(--site-accent);
+  color: var(--site-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(2, 132, 199, 0.25);
+}
+
+html:not(.dark) .space-links a:first-child:hover {
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  box-shadow: 0 6px 25px rgba(2, 132, 199, 0.5);
+  color: #ffffff;
+}
+
+html.dark .space-links a:first-child:hover {
+  background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
+  box-shadow: 0 6px 25px rgba(56, 189, 248, 0.5);
+  color: #030712;
+}
+
+/* Static Pages & Main Article Content Floating Cleanly (NO Distracting Boxes on About or Single Articles) */
+main article:not(.summary-card) {
+  padding: 0;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Clickable Blog Cards ONLY (Grid view / Post Lists) */
+article.summary-card {
+  margin-bottom: 1.5rem;
+  padding: 1.75rem 2rem;
+  border: 1px solid var(--site-panel-border);
+  border-radius: 1.1rem;
+  background: #ffffff;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform, box-shadow;
+}
+
+html:not(.dark) article.summary-card {
+  border-color: rgba(186, 230, 253, 0.85);
+  box-shadow: 0 8px 25px rgba(2, 132, 199, 0.06);
+}
+
+html:not(.dark) article.summary-card:hover {
+  border-color: #0284c7;
+  box-shadow: 0 10px 30px rgba(2, 132, 199, 0.2), 0 0 15px rgba(99, 102, 241, 0.12);
+  transform: translateY(-2px);
+}
+
+html.dark article.summary-card {
+  background: #0d1726;
+  border-color: rgba(56, 189, 248, 0.2);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+html.dark article.summary-card:hover {
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.25), 0 0 15px rgba(168, 85, 247, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Hide floating action drawers completely */
+.bf-action-float-mobile,
+.bf-action-float-desktop {
+  display: none !important;
+}
+
+/* Telemetry Pills */
+.bf-pill {
+  display: inline-flex;
+  gap: 0.45rem;
+  align-items: center;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--site-panel-border);
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.05);
+  color: var(--site-body);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  will-change: transform;
+}
+
+.bf-pill:hover {
+  border-color: var(--site-accent);
+  background: rgba(56, 189, 248, 0.14);
+  color: var(--site-accent);
+  transform: translateY(-2px);
+}
+
+.bf-pill svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--site-accent);
+}
+
+/* Generous Article Prose Spacing & Padding */
+main .prose {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem 0;
+}
+
+.article-content blockquote {
+  margin: 2rem 0;
+  padding: 1.5rem 1.8rem;
+  border-left: 4px solid var(--site-accent);
+  border-radius: 0.5rem;
+  background: var(--site-panel);
+}
+
+html:not(.dark) .article-content blockquote {
+  border-left-color: #0284c7;
+  background: #f0f9ff;
+}
+
+html.dark .article-content blockquote {
+  border-left-color: #38bdf8;
+  background: #0d1726;
+}
+
+.prose pre,
+.prose code {
+  font-family: var(--font-mono);
+}
+
+html:not(.dark) .prose pre {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(186, 230, 253, 0.8);
+  border-radius: 0.75rem;
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+html.dark .prose pre {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 0.75rem;
+  background-color: #060d1a !important;
+}
+
+.ai-note {
+  margin: 1.75rem 0;
+  padding: 1.25rem 1.5rem;
+  border-left: 4px solid var(--site-accent-violet);
+  border-radius: 0.6rem;
+  background: var(--site-panel);
+}
+
+/* Footer Styling */
+footer#site-footer {
+  position: relative;
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--site-panel-border);
+}
+
+html.dark footer#site-footer {
+  border-top-color: rgba(56, 189, 248, 0.2);
+}
+
+/* Custom Cosmic Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f9ff;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #030712;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: rgba(2, 132, 199, 0.35);
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(2, 132, 199, 0.65);
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.6);
+}
+
+/* Accessibility Focus States */
+:focus-visible {
+  outline: 2px solid var(--site-accent) !important;
+  outline-offset: 2px !important;
+}
+
+@media (max-width: 640px) {
+  .space-hero {
+    padding: 1.5rem 1.25rem;
+  }
+}

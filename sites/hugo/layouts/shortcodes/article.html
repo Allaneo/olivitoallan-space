@@ -1,0 +1,76 @@
+{{/*
+  Defensive article shortcode that safely references other articles
+  Usage: {{< article link="/posts/example-post/" showSummary=true compactSummary=true >}}
+  
+  This shortcode prevents hanging by:
+  1. Using GetPage to safely check if the target page exists
+  2. Failing gracefully if page not found (renders nothing)
+  3. Using lightweight fields (no .Content processing)
+  4. Providing clear debugging comments
+*/}}
+
+{{- $link := .Get "link" -}}
+{{- $showSummary := .Get "showSummary" | default false -}}
+{{- $compactSummary := .Get "compactSummary" | default false -}}
+
+{{- with site.GetPage $link -}}
+  {{/* Page exists - safe to render */}}
+  <article class="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4 my-4 border border-neutral-200 dark:border-neutral-700">
+    <div class="flex items-start space-x-3">
+      {{/* Icon */}}
+      <div class="flex-shrink-0 mt-1">
+        <svg class="w-5 h-5 text-primary-600 dark:text-primary-400" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+      
+      {{/* Content */}}
+      <div class="flex-1 min-w-0">
+        <h4 class="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-1">
+          <a href="{{ .RelPermalink }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+            {{ .Title }}
+          </a>
+        </h4>
+        
+        {{/* Subtitle if available */}}
+        {{ with .Params.subtitle }}
+          <p class="text-xs text-neutral-600 dark:text-neutral-400 mb-2">{{ . }}</p>
+        {{ end }}
+        
+        {{/* Summary if requested */}}
+        {{ if $showSummary }}
+          {{ with .Params.description }}
+            <p class="text-sm text-neutral-700 dark:text-neutral-300 {{ if $compactSummary }}line-clamp-2{{ end }}">
+              {{ . }}
+            </p>
+          {{ end }}
+        {{ end }}
+        
+        {{/* Meta info */}}
+        <div class="flex items-center space-x-2 mt-2 text-xs text-neutral-500 dark:text-neutral-400">
+          {{ with .Date }}
+            <time datetime="{{ .Format "2006-01-02" }}">{{ .Format "Jan 2, 2006" }}</time>
+          {{ end }}
+          {{ with .Params.categories }}
+            <span>•</span>
+            <span>{{ index . 0 }}</span>
+          {{ end }}
+          {{ with .ReadingTime }}
+            <span>•</span>
+            <span>{{ . }} min read</span>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </article>
+{{- else -}}
+  {{/* Page not found - fail gracefully with debug comment */}}
+  <!-- article shortcode: page not found "{{ $link }}" -->
+  {{- if hugo.IsProduction | not -}}
+    <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-3 my-2">
+      <p class="text-sm text-yellow-800 dark:text-yellow-200">
+        <strong>Development Notice:</strong> Article shortcode references missing page: <code>{{ $link }}</code>
+      </p>
+    </div>
+  {{- end -}}
+{{- end -}}

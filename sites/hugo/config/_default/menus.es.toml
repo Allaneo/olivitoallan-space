@@ -1,0 +1,9 @@
+[[main]]
+  name = "Actualizaciones"
+  pageRef = "/posts"
+  weight = 2
+
+[[main]]
+  name = "Sobre mí"
+  pageRef = "/page/about"
+  weight = 4

@@ -1,0 +1,52 @@
+{{ $promptTemplate := .Site.Params.aiDiscuss.prompt | default `Help me apply the ideas from this article: {URL}` }}
+{{ $fallbackURL := .Permalink }}
+{{ $chatgptModel := .Site.Params.aiDiscuss.chatgptModel | default "gpt-4o" }}
+
+<script type="application/json" id="ai-discuss-config">
+{
+  "promptTemplate": {{ $promptTemplate | jsonify | safeJS }},
+  "fallbackURL": "{{ $fallbackURL }}",
+  "chatgptModel": "{{ $chatgptModel }}"
+}
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const configNode = document.getElementById('ai-discuss-config');
+  if (!configNode) return;
+
+  let config = {};
+  try {
+    config = JSON.parse(configNode.textContent || '{}');
+  } catch (e) {
+    console.error('Could not parse AI Discuss config', e);
+    return;
+  }
+
+  const tpl = config.promptTemplate || 'Read this: {URL}';
+  const currentUrl = (window.location && window.location.origin) ? (window.location.origin + new URL(config.fallbackURL).pathname) : config.fallbackURL;
+  const prompt = tpl.replaceAll('{URL}', currentUrl);
+  const encPrompt = encodeURIComponent(prompt);
+  const model = config.chatgptModel || 'gpt-4o';
+
+  const buildHref = (provider) => {
+    switch (provider) {
+      case 'chatgpt':
+        return `https://chatgpt.com/?q=${encPrompt}`;
+      case 'claude':
+        return `https://claude.ai/new?q=${encPrompt}`;
+      case 'perplexity':
+        return `https://www.perplexity.ai/search?q=${encPrompt}`;
+      default:
+        return '#';
+    }
+  };
+
+  document.querySelectorAll('[data-provider]').forEach(link => {
+    const provider = link.getAttribute('data-provider');
+    if (provider) {
+      link.href = buildHref(provider);
+    }
+  });
+});
+</script>

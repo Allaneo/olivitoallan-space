@@ -1,0 +1,18 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Local AWS configuration
+aws/cert.json
+
+# Generated Hugo output and state
+/public/
+/sites/hugo/public/
+/sites/hugo/public-staging/
+/sites/hugo/resources/
+/sites/hugo/.hugo-logs/
+/sites/hugo/.hugo-dev.pid
+/sites/hugo/.hugo_build.lock
+/sites/hugo/hugo_stats.json
+

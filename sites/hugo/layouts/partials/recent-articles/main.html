@@ -1,0 +1,31 @@
+{{ $recentArticles := site.Params.homepage.showRecentItems | default 5 }}
+{{ $showMoreLinkDest := site.Params.homepage.showMoreLinkDest | default "/posts/" }}
+{{ $mainSections := site.Params.mainSections | default (slice "posts") }}
+{{ $pages := where site.RegularPages "Section" "in" $mainSections }}
+
+{{ if site.Params.homepage.showRecent | default false }}
+  <h2 class="mt-8 mb-10 text-2xl font-extrabold">Latest Articles</h2>
+
+  {{ if site.Params.homepage.cardView | default false }}
+    <section class="grid w-full gap-4 sm:grid-cols-2 md:grid-cols-3">
+      {{ range first $recentArticles $pages }}
+        {{ partial "article-link/card.html" . }}
+      {{ end }}
+    </section>
+  {{ else }}
+    <section class="w-full mt-10 mb-10 space-y-10">
+      {{ range first $recentArticles $pages }}
+        {{ partial "article-link/simple.html" . }}
+      {{ end }}
+    </section>
+  {{ end }}
+
+  {{ if site.Params.homepage.showMoreLink | default false }}
+    <div class="flex justify-center mt-10">
+      <a class="px-4 py-2 font-semibold bg-transparent border rounded border-primary-500 hover:text-primary-500" href="{{ $showMoreLinkDest }}">
+        Browse Articles
+      </a>
+    </div>
+  {{ end }}
+{{ end }}
+

@@ -1,0 +1,46 @@
+{{/* Desktop version: renders in right rail via single.html */}}
+<aside class="bf-action-float-desktop" aria-hidden="false">
+  <div class="bf-action-card">
+    {{ partial "action-panel-inner.html" . }}
+  </div>
+</aside>
+
+{{/* Mobile version: fixed bottom drawer */}}
+<div class="bf-action-float-mobile" data-open="false" aria-hidden="false">
+  <button class="bf-float-toggle" aria-expanded="false" aria-controls="bf-float-drawer">
+    <span>Discuss • Share</span>
+  </button>
+
+  <div id="bf-float-drawer" class="bf-float-drawer" hidden>
+    <div class="bf-float-drawer__panel bf-action-card">
+      {{ partial "action-panel-inner.html" . }}
+      <button class="bf-float-close" aria-label="Close">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const wrap = document.querySelector('.bf-action-float-mobile');
+  if(!wrap) return;
+  const btn = wrap.querySelector('.bf-float-toggle');
+  const drawer = wrap.querySelector('#bf-float-drawer');
+  const closeBtn = wrap.querySelector('.bf-float-close');
+
+  function openDrawer(){
+    drawer.hidden = false;
+    btn.setAttribute('aria-expanded','true');
+  }
+  function closeDrawer(){
+    drawer.hidden = true;
+    btn.setAttribute('aria-expanded','false');
+  }
+  btn.addEventListener('click', ()=> drawer.hidden ? openDrawer() : closeDrawer());
+  closeBtn.addEventListener('click', closeDrawer);
+
+  const bodyHasBanner = document.querySelector('.cookie-banner,.cky-consent-bar');
+  if(bodyHasBanner){ wrap.style.bottom = '72px'; }
+});
+</script>
+
+

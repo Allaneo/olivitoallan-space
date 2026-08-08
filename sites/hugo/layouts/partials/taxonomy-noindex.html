@@ -1,0 +1,6 @@
+{{/* If taxonomy pages are thin, emit noindex (prod+staging) unless explicitly allowed */}}
+{{ $allow := .Site.Params.taxonomyIndexable | default false }}
+{{ if not $allow }}
+  <meta name="robots" content="noindex,follow">
+{{ end }}
+

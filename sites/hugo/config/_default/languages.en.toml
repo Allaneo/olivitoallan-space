@@ -1,0 +1,22 @@
+locale = "en-US"
+label = "English"
+title = "Allan Eloy Olivito"
+copyright = "Allan Eloy Olivito"
+
+[params]
+  displayName = "EN"
+  isoCode = "en"
+  rtl = false
+  dateFormat = "2 January 2006"
+  description = "Aerospace engineering, flight dynamics, and machine learning applied to real technical work."
+  keywords = ["aerospace engineering", "orbital mechanics", "gnc", "machine learning", "space systems"]
+
+[params.author]
+  name = "Allan Eloy Olivito"
+  headline = "Aerospace engineer building reliable space and flight-dynamics systems with ML."
+  bio = "I document the engineering process behind what I study and build: orbital mechanics, GNC, simulation, verification, and practical ML for aerospace."
+  links = [
+    { linkedin = "https://linkedin.com/in/allaneloyolivito" },
+    { github = "https://github.com/Allaneo" },
+    { email = "mailto:eloyallan@gmail.com" }
+  ]

@@ -1,0 +1,161 @@
+{{ $siteParams := .Site.Params.aiDiscuss }}
+{{ $pageParams := .Page.Params.aiDiscuss }}
+{{ $enabled := $siteParams.enabled | default false }}
+{{ if not $enabled }}{{ else }}
+
+{{ $mode := default (default "short" $siteParams.mode) $pageParams.mode }}
+{{ $default := default (default "chatgpt" $siteParams.default) $pageParams.default }}
+{{ $providers := default (slice "chatgpt" "claude" "perplexity") $siteParams.providers }}
+{{ $chatgptModel := default "gpt-4o" $siteParams.chatgptModel }}
+
+{{/* Support explicit prompt passed into shortcode, then page/site overrides */}}
+{{ $argPrompt := .Get "prompt" }}
+{{ $pagePrompt := $pageParams.prompt }}
+{{ $sitePrompt := $siteParams.prompt }}
+{{ $promptTemplate := default (default $sitePrompt $pagePrompt) $argPrompt }}
+{{ if not $promptTemplate }}
+  {{ $promptTemplate = `Help me apply the ideas from this article: {URL}
+
+Steps:
+1. Start by asking me 2–3 quick questions about my role, goals, or constraints.
+2. Translate the article’s key points into practical actions I could take this week.
+3. Flag likely risks or blockers, with ways to mitigate them.
+4. Outline a simple 7-day plan and a 30-day check-in.
+
+Style:
+- Act like a helpful advisor: clear, direct, no fluff.
+- Keep it concise and bullet-based.
+- Use my preferred language.` }}
+{{ end }}
+
+{{/* Fallback URL built from site.BaseURL to avoid localhost if JS fails; runtime JS will use window.location.origin */}}
+{{ $base := strings.TrimRight "/" (site.BaseURL) }}
+{{ $fallbackURL := printf "%s%s" $base .RelPermalink }}
+{{ $promptFallback := replace $promptTemplate "{URL}" $fallbackURL }}
+
+{{- $labels := dict
+    "chatgpt" (default "Open in ChatGPT" $siteParams.labelChatGPT)
+    "claude" (default "Open in Claude" $siteParams.labelClaude)
+    "perplexity" (default "Open in Perplexity" $siteParams.labelPerplexity)
+-}}
+
+{{/* Compute default href for the quick-open button (fallback; JS will rewrite) */}}
+{{ $defHref := "#" }}
+{{ if eq $default "chatgpt" }}
+  {{ $defHref = printf "https://chatgpt.com/?model=%s&q=%s" $chatgptModel ($promptFallback | urlquery) }}
+{{ else if eq $default "claude" }}
+  {{ $defHref = printf "https://claude.ai/new?q=%s" ($promptFallback | urlquery) }}
+{{ else if eq $default "perplexity" }}
+  {{ $defHref = printf "https://www.perplexity.ai/search?q=%s" ($promptFallback | urlquery) }}
+{{ end }}
+
+{{/* Build menu items (fallback; JS will rewrite) */}}
+{{ $items := slice }}
+{{ range $providers }}
+  {{ $name := . }}
+  {{ $href := "#" }}
+  {{ if eq $name "chatgpt" }}
+    {{ $href = printf "https://chatgpt.com/?model=%s&q=%s" $chatgptModel ($promptFallback | urlquery) }}
+  {{ else if eq $name "claude" }}
+    {{ $href = printf "https://claude.ai/new?q=%s" ($promptFallback | urlquery) }}
+  {{ else if eq $name "perplexity" }}
+    {{ $href = printf "https://www.perplexity.ai/search?q=%s" ($promptFallback | urlquery) }}
+  {{ end }}
+  {{ $label := index $labels $name }}
+  {{ $items = $items | append (dict "name" $name "href" $href "label" $label) }}
+{{ end }}
+
+{{ $mainLabel := default "💬 Discuss with your AI" $siteParams.labelMain }}
+
+<div class="discuss-ai inline-flex items-center gap-1 whitespace-nowrap relative" data-provider-default="{{ $default }}" data-rel="{{ .RelPermalink }}" data-fallback-url="{{ $fallbackURL }}" data-chatgpt-model="{{ $chatgptModel }}">
+  <script type="application/json" class="discuss-ai__prompt">{{ jsonify (dict "promptTemplate" $promptTemplate) }}</script>
+  <button type="button"
+          class="discuss-ai__primary inline-flex items-center gap-2 font-semibold px-3 py-2 rounded-md border border-neutral-300 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-700 text-neutral-800 dark:text-neutral hover:bg-neutral-100 dark:hover:bg-neutral-600 shadow-md"
+          aria-haspopup="true" aria-expanded="false">
+    <span>💬</span><span>{{ $mainLabel | strings.TrimLeft "💬 " }}</span>
+  </button>
+
+  <a class="discuss-ai__quick inline-flex items-center justify-center px-2 py-2 rounded-md border border-neutral-300 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-700 text-neutral-800 dark:text-neutral hover:bg-neutral-100 dark:hover:bg-neutral-600 shadow-md"
+     target="_blank" rel="noopener"
+     data-role="quick"
+     href="{{ $defHref }}"
+     title="Open with {{ $default | title }} (web)">
+    ⏩
+  </a>
+
+  <div class="discuss-ai__menu absolute z-50 hidden min-w-[14rem] mt-2 p-1 rounded-md border border-neutral-300 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-700 shadow-xl"
+       role="menu">
+    {{- range $items -}}
+      <a role="menuitem" class="block px-3 py-2 rounded hover:bg-neutral-100 dark:hover:bg-neutral-600"
+         target="_blank" rel="noopener"
+         data-provider="{{ .name }}"
+         href="{{ .href }}" {{ if eq .name "chatgpt" }}title="Only available for desktop application"{{ end }}>
+        {{- if eq .name "chatgpt" -}}🤖 {{ end -}}
+        {{- if eq .name "claude" -}}🧠 {{ end -}}
+        {{- if eq .name "perplexity" -}}🔎 {{ end -}}
+        {{ .label }}
+      </a>
+    {{- end -}}
+  </div>
+</div>
+
+<script>
+document.addEventListener('click', (e) => {
+  const root = e.target.closest('.discuss-ai');
+  if (!root) {
+    document.querySelectorAll('.discuss-ai__menu').forEach(m => m.classList.add('hidden'));
+    document.querySelectorAll('.discuss-ai__primary[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded','false'));
+    return;
+  }
+
+  // One-time dynamic link build using current origin and selected prompt
+  if (!root.__linksBuilt) {
+    try {
+      const rel = root.getAttribute('data-rel') || '/';
+      const currentUrl = (window.location && window.location.origin) ? (window.location.origin + rel) : (root.getAttribute('data-fallback-url') || rel);
+      const promptNode = root.querySelector('.discuss-ai__prompt');
+      let tpl = null;
+      if (promptNode) {
+        const obj = JSON.parse(promptNode.textContent || '{}');
+        tpl = obj.promptTemplate || null;
+      }
+      if (!tpl) {
+        tpl = 'Help me apply the ideas from this article: {URL}\n\nSteps:\n1. Start by asking me 2–3 quick questions about my role, goals, or constraints.\n2. Translate the article’s key points into practical actions I could take this week.\n3. Flag likely risks or blockers, with ways to mitigate them.\n4. Outline a simple 7-day plan and a 30-day check-in.\n\nStyle:\n- Act like a helpful advisor: clear, direct, no fluff.\n- Keep it concise and bullet-based.\n- Use my preferred language.';
+      }
+      const prompt = tpl.replaceAll('{URL}', currentUrl);
+      const model = root.getAttribute('data-chatgpt-model') || 'gpt-4o';
+      const quick = root.querySelector('.discuss-ai__quick[data-role="quick"]');
+      const def = root.getAttribute('data-provider-default') || 'chatgpt';
+      const enc = encodeURIComponent(prompt);
+      const buildHref = (name) => {
+        if (name === 'chatgpt') return `https://chatgpt.com/?model=${encodeURIComponent(model)}&q=${enc}`;
+        if (name === 'claude') return `https://claude.ai/new?q=${enc}`;
+        if (name === 'perplexity') return `https://www.perplexity.ai/search?q=${enc}`;
+        return '#';
+      };
+      if (quick) quick.setAttribute('href', buildHref(def));
+      root.querySelectorAll('[data-provider]').forEach(a => {
+        const name = a.getAttribute('data-provider');
+        a.setAttribute('href', buildHref(name));
+      });
+      root.__linksBuilt = true;
+    } catch (_) { /* ignore */ }
+  }
+
+  const trigger = e.target.closest('.discuss-ai__primary');
+  if (trigger) {
+    const menu = root.querySelector('.discuss-ai__menu');
+    const isHidden = menu.classList.contains('hidden');
+    document.querySelectorAll('.discuss-ai__menu').forEach(m => m.classList.add('hidden'));
+    if (isHidden) {
+      menu.classList.remove('hidden');
+      trigger.setAttribute('aria-expanded','true');
+    } else {
+      menu.classList.add('hidden');
+      trigger.setAttribute('aria-expanded','false');
+    }
+  }
+});
+</script>
+{{ end }}
+

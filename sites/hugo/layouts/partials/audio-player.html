@@ -1,0 +1,36 @@
+{{- /* Audio Player Partial - displays when post has audio.src defined */ -}}
+{{- if .Params.audio.src -}}
+<div class="audio-player mb-6 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700">
+  <div class="flex items-center space-x-4">
+    <div class="flex-shrink-0">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M9 9v6l4-3-4-3z" />
+      </svg>
+    </div>
+    <div class="flex-1 min-w-0">
+      <h4 class="text-sm font-medium text-neutral-900 dark:text-neutral-100 mb-2">
+        {{ .Params.audio.title | default "Listen to this post" }}
+      </h4>
+      <audio 
+        controls 
+        preload="metadata"
+        class="w-full h-8"
+        aria-label="{{ .Params.audio.title | default "Audio version of this post" }}"
+      >
+        <source src="{{ .Params.audio.src }}" type="audio/mpeg">
+        <p class="text-sm text-neutral-600 dark:text-neutral-400">
+          Your browser doesn't support HTML5 audio. 
+          <a href="{{ .Params.audio.src }}" class="text-primary-600 dark:text-primary-400 hover:underline">
+            Download the audio file
+          </a> instead.
+        </p>
+      </audio>
+      {{- if .Params.audio.duration -}}
+      <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
+        Duration: {{ .Params.audio.duration }}
+      </p>
+      {{- end -}}
+    </div>
+  </div>
+</div>
+{{- end -}}
