@@ -14,7 +14,7 @@ copyright = "Allan Eloy Olivito"
 [params.author]
   name = "Allan Eloy Olivito"
   headline = "Aerospace engineer building reliable space and flight-dynamics systems with ML."
-  bio = "I share what I learn—especially about machine learning and AI—and how I apply it through aerospace engineering projects."
+  bio = "I share what I learn, especially about machine learning and AI, and how I apply it through aerospace engineering projects."
   links = [
     { linkedin = "https://linkedin.com/in/allaneloyolivito" },
     { github = "https://github.com/Allaneo" },

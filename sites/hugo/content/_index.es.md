@@ -5,7 +5,6 @@ draft: false
 ---
 
 <section class="space-hero">
-  <p class="space-eyebrow">Ingeniería aeroespacial · Machine learning · IA</p>
   <h1>Ingeniería aeroespacial e IA aplicada.</h1>
   <p class="space-lede">Soy Allan Olivito, ingeniero aeroespacial. Exploro cómo el machine learning y la inteligencia artificial pueden aplicarse en distintas áreas del sector aeroespacial. Acá comparto lo que aprendo y lo convierto en proyectos concretos de ingeniería.</p>
   <div class="space-links">
