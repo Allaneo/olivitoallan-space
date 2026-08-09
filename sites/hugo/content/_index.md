@@ -5,7 +5,6 @@ draft: false
 ---
 
 <section class="space-hero">
-  <p class="space-eyebrow">Aerospace engineering · Machine learning · AI</p>
   <h1>Aerospace engineering meets applied AI.</h1>
   <p class="space-lede">I’m Allan Olivito, an aerospace engineer exploring how machine learning and AI can be applied across the aerospace field. Here I share what I learn and turn it into practical engineering projects.</p>
   <div class="space-links">
