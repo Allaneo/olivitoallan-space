@@ -221,7 +221,7 @@ html.dark .space-hero h1 {
 
 .about-intro {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(12rem, 15rem);
+  grid-template-columns: minmax(0, 1fr) 12rem;
   align-items: center;
   gap: clamp(1.75rem, 5vw, 3.5rem);
   margin: 1.5rem 0 2.5rem;
@@ -236,7 +236,7 @@ html.dark .space-hero h1 {
 }
 
 .about-portrait {
-  width: 100%;
+  width: 12rem;
   aspect-ratio: 1;
   border: 1px solid var(--site-panel-border);
   border-radius: 1.25rem;
@@ -476,7 +476,7 @@ html.dark ::-webkit-scrollbar-thumb:hover {
 
   .about-portrait {
     order: -1;
-    width: min(15rem, 72vw);
+    width: min(12rem, 64vw);
     margin-inline: auto;
   }
 }

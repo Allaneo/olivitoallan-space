@@ -13,8 +13,6 @@ aiDiscuss:
   enabled: false
 ---
 
-## About me
-
 <div class="about-intro">
   <div class="about-intro-copy">
     <p>I am an aerospace engineer exploring how machine learning and artificial intelligence can be applied across the aerospace field.</p>

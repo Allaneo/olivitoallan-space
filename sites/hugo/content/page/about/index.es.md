@@ -12,8 +12,6 @@ aiDiscuss:
   enabled: false
 ---
 
-## Sobre mí
-
 <div class="about-intro">
   <div class="about-intro-copy">
     <p>Soy ingeniero aeroespacial y exploro cómo el machine learning y la inteligencia artificial pueden aplicarse en distintas áreas del sector aeroespacial.</p>
