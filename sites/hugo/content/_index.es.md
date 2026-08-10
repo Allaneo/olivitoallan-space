@@ -1,6 +1,4 @@
 ---
-title: "Ingeniería aeroespacial e IA aplicada"
-description: "Proyectos y notas técnicas sobre la aplicación de machine learning e IA en la ingeniería aeroespacial."
 draft: false
 ---
 
@@ -13,6 +11,6 @@ draft: false
   </div>
 </section>
 
-Este sitio muestra el proceso detrás de cada proyecto: el problema, las decisiones de ingeniería, la implementación y lo que aprendí en el camino.
+Este espacio muestra el proceso detrás de cada proyecto: el problema, las decisiones de ingeniería, la implementación y lo que aprendí en el camino.
 
-Las aplicaciones pueden abarcar distintas disciplinas aeroespaciales. El hilo conductor es combinar fundamentos de ingeniería, simulación y herramientas basadas en datos para comprender y construir mejores sistemas.
+Las aplicaciones pueden abarcar distintas disciplinas aeroespaciales. El punto en común es la combinación de fundamentos de ingeniería, simulación y herramientas basadas en datos para comprender y construir mejores sistemas aeroespaciales.

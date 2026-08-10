@@ -16,7 +16,7 @@ aiDiscuss:
 <div class="about-intro">
   <div class="about-intro-copy">
     <p>I am an aerospace engineer exploring how machine learning and artificial intelligence can be applied across the aerospace field.</p>
-    <p>I am interested in the complete engineering process: understanding a problem, building a model, testing assumptions, validating results, and turning the work into a practical project. Rather than limiting that process to a single aerospace discipline, I want to explore where data-driven methods can add real engineering value.</p>
+    <p>I am interested in the complete engineering process: understanding a problem, building a model, testing assumptions, validating results, and turning the work into a practical project.</p>
   </div>
   <img class="about-portrait" src="/images/allan-olivito.jpg" alt="Portrait of Allan Eloy Olivito" />
 </div>
@@ -32,12 +32,7 @@ I use this site to share:
 Each topic is published in both English and Spanish.
 
 ### Contact
-
+Feel free to reach out!
 - LinkedIn: <https://linkedin.com/in/allaneloyolivito>
 - GitHub: <https://github.com/Allaneo>
 - Email: <mailto:eloyallan@gmail.com>
-
-### Licensing
-
-Editorial content is published under CC BY 4.0.  
-Details: [Content license](/license/)

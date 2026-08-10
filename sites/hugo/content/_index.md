@@ -1,6 +1,4 @@
 ---
-title: "Aerospace engineering and applied AI"
-description: "Projects and technical notes exploring machine learning and AI across aerospace engineering."
 draft: false
 ---
 
@@ -15,4 +13,4 @@ draft: false
 
 This site follows the process behind each project: the problem, the engineering decisions, the implementation, and what I learned along the way.
 
-The applications may span different aerospace disciplines. The common thread is using engineering fundamentals, simulation, and data-driven tools to understand and build better systems.
+The applications may span different aerospace disciplines. The common thread is using engineering fundamentals, simulation, and data-driven tools to understand and build better aerospace systems.
