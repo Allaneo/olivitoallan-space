@@ -1,90 +1,107 @@
-# Hugo Website Template
+# Allan Eloy Olivito — Personal Website & Engineering Blog
 
-A reusable Hugo and Blowfish foundation for editorial websites. It includes
-custom layouts and styling, optional AI discussion links, SEO metadata, local
-development tooling, and optional AWS deployment automation.
+This repository contains the source code for [olivitoallan.space](https://olivitoallan.space/), built with **Hugo** and the **Blowfish** theme.
 
-The template ships with no articles, personal profile data, analytics IDs,
-cloud account identifiers, or original-site branding.
+---
 
-## Start here
+## 🚀 Quick Start (Local Development)
 
-1. Install [Hugo Extended](https://gohugo.io/installation/).
-2. Configure the site:
-   - `sites/hugo/config/_default/languages.en.toml` for title and author
-   - `sites/hugo/config/_default/hugo.toml` for the public URL
-   - `sites/hugo/config/_default/params.toml` for appearance and features
-   - `sites/hugo/config/_default/menus.en.toml` for navigation
-3. Replace the generic homepage and About copy in `sites/hugo/content/`.
-4. Build the site:
+### 1. Prerequisites
+- **Git**
+- **Hugo Extended** (`v0.141.0` or newer):
+  ```bash
+  brew install hugo
+  ```
 
-   ```bash
-   tools/scripts/dev.sh build
-   ```
-
-5. Start local development:
-
-   ```bash
-   tools/scripts/dev.sh start
-   ```
-
-The local site is available at `http://localhost:1313`.
-
-See [First-time setup](docs/SETUP.md) for the complete configuration path and
-[the launch checklist](docs/CONFIGURATION_CHECKLIST.md) before publishing.
-
-## Create content
-
+### 2. Start Local Server
+Run the local development server from the repository root:
 ```bash
-tools/scripts/new-post.sh "My first post"
+tools/scripts/dev.sh start
+```
+- Open `http://localhost:1313` in your browser.
+- Supports **live reloading** when you edit files.
+- Includes draft articles (`draft: true`) in the local preview.
+
+### 3. Stop Local Server
+```bash
+tools/scripts/dev.sh stop
 ```
 
-The command creates a draft under `sites/hugo/content/posts/`. No sample
-article is included, so every published article belongs to the new site.
+---
 
-## Preserved foundation
+## ✍️ Content Creation & Publishing Workflow
 
-- Blowfish theme source is bundled under `sites/hugo/themes/blowfish/`.
-- Reusable custom layouts live under `sites/hugo/layouts/`.
-- Reusable editorial and action-panel styles live in
-  `sites/hugo/assets/css/custom.css`.
-- Optional analytics, disclosure, audio, structured data, and AI discussion
-  features are disabled or unconfigured by default.
-- Development, validation, staging, production, and recovery scripts remain
-  under `tools/scripts/`.
+### Step 1: Create a New Post
+Generate a new article folder under `sites/hugo/content/posts/`:
+```bash
+tools/scripts/new-post.sh "My Article Title"
+```
 
-## Optional AWS deployment
+This creates a new folder with bilingual markdown files:
+- `index.es.md` (Spanish version)
+- `index.en.md` (English version)
 
-AWS deployment is opt-in. Copy `.env.example` to `.env`, provide your domain,
-stack prefix, and ACM certificate ARN, then follow the deployment section in
-[the setup guide](docs/SETUP.md).
+### Step 2: Edit Content & Preview
+Edit the files in your code editor. While you are working on an article, keep `draft: true` in the frontmatter:
+```yaml
+---
+title: "My Article Title"
+date: 2026-08-10T12:00:00-03:00
+draft: true
+---
+```
+*Draft articles are visible on `http://localhost:1313` during local dev, but are automatically excluded from the production website.*
 
-Local configuration is ignored by Git. The repository contains placeholders
-only; do not add `.env`, credentials, private keys, or generated site output.
+### Step 3: Publish Content Online
+When an article is ready to go live:
 
-## Key commands
+1. **Set draft to false**: Change `draft: true` to `draft: false` in both `index.es.md` and `index.en.md`.
+2. **Commit and push to `main`**:
+   ```bash
+   git add .
+   git commit -m "Publish post: My Article Title"
+   git push origin main
+   ```
 
-- `tools/scripts/dev.sh start` — start the local server
-- `tools/scripts/dev.sh stop` — stop the local server
-- `tools/scripts/dev.sh restart` — restart the local server
-- `tools/scripts/dev.sh build` — run the canonical local build
-- `tools/scripts/new-post.sh "Title"` — create a draft article
-- `tools/scripts/article-validate.sh` — validate published article metadata
-- `tools/scripts/deploy-staging.sh` — build and deploy staging
-- `tools/scripts/deploy-production.sh` — build and deploy production
+---
 
-## Repository layout
+## 🌐 Automated Deployment (GitHub Pages)
+
+Deployment is **100% automated** via **GitHub Actions** and **GitHub Pages**:
+
+1. Pushing commits to the `main` branch automatically triggers `.github/workflows/deploy-pages.yml`.
+2. GitHub Actions compiles the Hugo site with production settings and publishes it directly to **[olivitoallan.space](https://olivitoallan.space/)**.
+3. You can monitor active deployment jobs under the **Actions** tab on your GitHub repository.
+
+> **Note**: You do **not** need AWS, Cloudflare Workers, or manual deploy scripts (`publish.sh`) for normal publishing. Pushing to `main` does everything automatically.
+
+---
+
+## 🛠️ Key Commands Reference
+
+| Command | Action |
+| :--- | :--- |
+| `tools/scripts/dev.sh start` | Starts local Hugo server with live reload on `http://localhost:1313` |
+| `tools/scripts/dev.sh stop` | Stops the running local Hugo server |
+| `tools/scripts/dev.sh build` | Runs a canonical local Hugo build to test for errors |
+| `tools/scripts/new-post.sh "Title"` | Generates a new bilingual article draft folder |
+| `tools/scripts/article-validate.sh` | Validates article metadata formatting |
+
+---
+
+## 📁 Repository Structure
 
 ```text
-aws/                    Optional CloudFormation infrastructure
-docs/                   Setup, checklist, and operational runbooks
+.github/workflows/      GitHub Actions deployment workflow (deploy-pages.yml)
+docs/                   Setup instructions and configuration checklists
 sites/hugo/
-  archetypes/           New-content defaults
-  assets/css/           Reusable custom styling
-  config/               Site, theme, and environment configuration
-  content/              Generic homepage, About page, and empty posts section
-  layouts/              Reusable Hugo overrides and features
-  static/               Generic favicon and optional feature icons
-  themes/blowfish/      Bundled upstream theme
-tools/scripts/          Development, validation, and deployment automation
+  archetypes/           New article default templates
+  assets/css/           Custom CSS styling (custom.css)
+  config/               Hugo environment and language configuration
+  content/              Site pages (homepage, About page, posts/)
+    posts/              All blog articles (bilingual index.es.md and index.en.md)
+  layouts/              Custom layout overrides
+  static/               Favicons, assets, and manifests
+  themes/blowfish/      Bundled Blowfish theme
+tools/scripts/          Development and validation scripts
 ```
