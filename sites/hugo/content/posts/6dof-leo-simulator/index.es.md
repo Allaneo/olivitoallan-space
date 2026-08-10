@@ -155,11 +155,9 @@ Entre las pruebas se incluyeron:
 - Torque de gradiente gravitatorio.
 - Respuesta a variaciones del campo geomagnético.
 
-En la prueba de decaimiento orbital por arrastre, la diferencia entre la tasa obtenida por simulación y la estimación teórica fue del orden de 3.85 × 10⁻¹² m/s. Para el torque de gradiente gravitatorio, la diferencia relativa fue aproximadamente del 0,52 %.
+En la prueba de decaimiento orbital por arrastre, la diferencia entre la tasa obtenida por simulación y la estimación teórica fue del orden de 3.85 × 10⁻¹² m/s. 
 
 Estos resultados no demuestran que cualquier escenario posible quede automáticamente validado, pero sí aportan evidencia de que los principales módulos reproducen los comportamientos físicos esperados.
-
-![Gráfico de verificación que compara dos transformaciones ECI a ECEF durante un intervalo de 30 días](verification-eci-ecef.png "Ejemplo de la campaña de verificación")
 
 ## Cómo utilizar el simulador
 

@@ -155,11 +155,9 @@ The tests covered:
 - Gravity-gradient torque.
 - Response to changes in the geomagnetic field.
 
-In the orbital-decay test, the difference between the simulated rate and the theoretical estimate was on the order of 3.85 × 10⁻¹² m/s. For gravity-gradient torque, the relative difference was approximately 0.52%.
+In the orbital-decay test, the difference between the simulated rate and the theoretical estimate was on the order of 3.85 × 10⁻¹² m/s.
 
 These results do not imply that every possible scenario is automatically validated, but they provide evidence that the main modules reproduce the expected physical behavior.
-
-![Verification plot comparing two ECI-to-ECEF transformation approaches over a 30-day interval](verification-eci-ecef.png "Example from the verification campaign")
 
 ## How to run it
 
