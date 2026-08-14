@@ -16,3 +16,6 @@ aws/cert.json
 /sites/hugo/.hugo_build.lock
 /sites/hugo/hugo_stats.json
 
+# Local editor/agent tooling (dev server launch config)
+/.claude/
+
