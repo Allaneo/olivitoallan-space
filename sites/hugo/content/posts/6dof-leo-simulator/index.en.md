@@ -2,7 +2,7 @@
 title: "From zero to a 6-DoF simulator for LEO satellites"
 summary: "How I went from knowing almost no orbital mechanics to researching, designing, implementing, and verifying a six-degree-of-freedom satellite simulator."
 description: "Building a 6-DoF MATLAB/Simulink simulator to study the orbital and attitude dynamics of satellites in low Earth orbit."
-date: 2026-08-08T18:00:00-03:00
+date: 2026-08-14T14:17:00-03:00
 draft: false
 translationKey: "6dof-leo-simulator"
 slug: "6dof-leo-satellite-simulator"

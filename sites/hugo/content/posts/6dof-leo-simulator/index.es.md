@@ -2,7 +2,7 @@
 title: "De cero a un simulador 6DoF para satélites LEO"
 summary: "Cómo pasé de no conocer prácticamente nada de mecánica orbital a investigar, diseñar, implementar y verificar un simulador de seis grados de libertad."
 description: "Desarrollo de un simulador 6DoF en MATLAB/Simulink para estudiar la dinámica orbital y de actitud de satélites en órbita baja."
-date: 2026-08-08T18:00:00-03:00
+date: 2026-08-14T14:17:00-03:00
 draft: false
 translationKey: "6dof-leo-simulator"
 slug: "simulador-6dof-satelites-leo"
