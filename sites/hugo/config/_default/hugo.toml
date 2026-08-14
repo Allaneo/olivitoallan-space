@@ -5,6 +5,13 @@ defaultContentLanguageInSubdir = false
 enableRobotsTXT = true
 summaryLength = 30
 
+[imaging]
+  # Lanczos preserves fine detail (thin diagram lines, small labels) far better
+  # than Hugo's default Box filter when resizing.
+  resampleFilter = "Lanczos"
+  quality = 92
+  anchor = "Smart"
+
 [pagination]
   pagerSize = 10
 

@@ -3,7 +3,7 @@ title: "De cero a un simulador 6DoF para satélites LEO"
 summary: "Cómo pasé de no conocer prácticamente nada de mecánica orbital a investigar, diseñar, implementar y verificar un simulador de seis grados de libertad."
 description: "Desarrollo de un simulador 6DoF en MATLAB/Simulink para estudiar la dinámica orbital y de actitud de satélites en órbita baja."
 date: 2026-08-08T18:00:00-03:00
-draft: true
+draft: false
 translationKey: "6dof-leo-simulator"
 slug: "simulador-6dof-satelites-leo"
 featureimagecaption: "Arquitectura general del simulador 6DoF"
@@ -21,7 +21,7 @@ La dificultad estaba escondida dentro de esa frase.
 
 No se trataba solamente de programar ecuaciones de movimiento. Antes tenía que entender qué debía simular, qué modelos eran apropiados, cómo combinar sistemas de referencia distintos, qué nivel de fidelidad tenía sentido y cómo verificar que cada resultado fuera físicamente coherente.
 
-Además, el simulador debía ser lo suficientemente modular como para que otra persona pudiera modificar una condición inicial, cambiar un modelo ambiental o conectar un controlador sin tener que reconstruir el proyecto completo.
+Además, el simulador debía ser lo suficientemente modular como para que otra persona pudiera modificar condiciones inciales, cambiar un modelo ambiental o conectar un controlador sin tener que reconstruir el proyecto completo.
 
 ## ¿Qué significa simular seis grados de libertad?
 
@@ -72,7 +72,7 @@ Organicé el proyecto en tres grandes etapas:
 
 Dentro del modelo principal, las perturbaciones ambientales, transformaciones de coordenadas, actuadores y controladores están separadas en módulos.
 
-Esta estructura permite, por ejemplo, cambiar el modelo gravitatorio sin modificar el propagador de actitud, reemplazar un controlador sin alterar los modelos ambientales o desactivar una perturbación para estudiar su efecto individual.
+Esta estructura permite, por ejemplo, cambiar el modelo gravitatorio sin modificar el propagador de actitud, reemplazar un controlador sin alterar los modelos ambientales o aislar una perturbación para estudiar su efecto individual.
 
 La intención era que el simulador no quedara limitado a una única configuración, sino que funcionara como una plataforma para experimentar.
 
@@ -94,11 +94,11 @@ El modelo de dos cuerpos resulta útil como referencia y tiene un costo computac
 
 ### Arrastre atmosférico
 
-Aunque suele imaginarse el espacio como un vacío, en una órbita baja todavía existe una atmósfera residual. Su interacción con el satélite produce una fuerza de arrastre que reduce gradualmente la energía orbital.
+Aunque suele imaginarse el espacio como un vacío, en una órbita baja todavía existe una atmósfera residual. Su interacción con el satélite produce una fuerza de arrastre que reduce gradualmente la energía orbital. Esta fuerza es la principal causa de que los satélites caigan.
 
 El simulador incluye diferentes representaciones de densidad atmosférica, entre ellas modelos exponenciales y modelos basados en las atmósferas estándar de 1962 y 1976.
 
-También permite representar al satélite como una esfera equivalente —la aproximación conocida como *cannonball*— o calcular el área proyectada de un prisma según su actitud.
+También permite representar al satélite como una esfera equivalente -la aproximación conocida como *cannonball*— o calcular el área proyectada de un prisma según su actitud.
 
 Esta segunda opción hace visible el acoplamiento entre la dinámica orbital y la orientación: dos satélites en el mismo punto y con la misma velocidad pueden experimentar fuerzas distintas si presentan áreas diferentes al flujo atmosférico.
 
@@ -120,15 +120,7 @@ El simulador calcula el torque de gradiente gravitatorio, producido por la difer
 
 También incorpora la interacción entre un dipolo magnético y el campo geomagnético terrestre. Para obtener ese campo utilicé el World Magnetic Model disponible en Aerospace Toolbox.
 
-Ese modelo geomagnético es la única implementación física que proviene de una herramienta externa. El resto de los modelos y de la integración del simulador fue desarrollado específicamente para el proyecto.
-
-### Sistemas de referencia
-
-Una parte importante del trabajo consistió en mantener consistencia entre sistemas de coordenadas.
-
-El proyecto utiliza y transforma información entre marcos como ECI, ECEF, LVLH, NED y BODY, además de coordenadas geocéntricas y geodésicas.
-
-Estas transformaciones no son un detalle secundario. Una fuerza correcta expresada en el sistema equivocado sigue produciendo un resultado incorrecto.
+Ese modelo geomagnético es la única implementación que proviene de una herramienta externa. **El resto de los modelos y de la integración del simulador fue totalmente desarrollado por mí específicamente para el proyecto.**
 
 ## Actuadores y control
 

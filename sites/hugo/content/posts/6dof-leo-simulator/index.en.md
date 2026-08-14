@@ -3,7 +3,7 @@ title: "From zero to a 6-DoF simulator for LEO satellites"
 summary: "How I went from knowing almost no orbital mechanics to researching, designing, implementing, and verifying a six-degree-of-freedom satellite simulator."
 description: "Building a 6-DoF MATLAB/Simulink simulator to study the orbital and attitude dynamics of satellites in low Earth orbit."
 date: 2026-08-08T18:00:00-03:00
-draft: true
+draft: false
 translationKey: "6dof-leo-simulator"
 slug: "6dof-leo-satellite-simulator"
 featureimagecaption: "General architecture of the 6-DoF simulator"
@@ -94,7 +94,7 @@ The two-body model provides a low-cost reference. The J₂ term captures importa
 
 ### Atmospheric drag
 
-Although space is often imagined as a vacuum, a residual atmosphere remains in low Earth orbit. Its interaction with the satellite produces drag and gradually reduces orbital energy.
+Although space is often imagined as a vacuum, a residual atmosphere remains in low Earth orbit. Its interaction with the satellite produces drag and gradually reduces orbital energy. This force is the main cause why satellites fall from their orbit.
 
 The simulator includes different atmospheric-density representations, including exponential models and the 1962 and 1976 standard atmospheres.
 
@@ -120,15 +120,7 @@ The simulator calculates gravity-gradient torque, caused by the variation of Ear
 
 It also represents the interaction between a magnetic dipole and Earth's geomagnetic field. I used the World Magnetic Model available in Aerospace Toolbox to obtain that field.
 
-This geomagnetic model is the only physical-model implementation that comes from an external toolbox. The remaining models and their integration into the simulator were developed specifically for this project.
-
-### Reference frames
-
-A significant part of the work involved maintaining consistency across coordinate systems.
-
-The project transforms information between ECI, ECEF, LVLH, NED, and BODY frames, as well as geocentric and geodetic coordinates.
-
-These transformations are not a secondary implementation detail. A correct force expressed in the wrong reference frame still produces an incorrect result.
+This geomagnetic model is the only physical-model implementation that comes from an external toolbox. **The remaining models and their integration into the simulator were completely developed by myself specifically for this project.**
 
 ## Actuators and control
 
@@ -150,7 +142,6 @@ The tests covered:
 
 - State consistency and conservation in ideal cases.
 - Orbital precession produced by J₂.
-- Drag variation after changing C_d·A.
 - Semimajor-axis decay due to drag.
 - Gravity-gradient torque.
 - Response to changes in the geomagnetic field.
