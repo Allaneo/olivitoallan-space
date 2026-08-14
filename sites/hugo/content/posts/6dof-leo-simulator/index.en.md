@@ -76,8 +76,6 @@ This structure makes it possible to change the gravity model without modifying t
 
 The simulator was intended to work as an experimentation platform, not as a single fixed configuration.
 
-![Thumbnail of the main Simulink model showing the top-level subsystems](simulink-model.png "Top level of the Simulink model")
-
 ## The models I implemented
 
 ### Earth's gravity

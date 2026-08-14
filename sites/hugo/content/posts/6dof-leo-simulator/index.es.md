@@ -76,8 +76,6 @@ Esta estructura permite, por ejemplo, cambiar el modelo gravitatorio sin modific
 
 La intención era que el simulador no quedara limitado a una única configuración, sino que funcionara como una plataforma para experimentar.
 
-![Vista en miniatura del modelo principal y sus subsistemas de Simulink](simulink-model.png "Nivel superior del modelo de Simulink")
-
 ## Los modelos implementados
 
 ### Gravedad terrestre
