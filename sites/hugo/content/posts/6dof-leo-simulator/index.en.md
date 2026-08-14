@@ -7,7 +7,7 @@ draft: false
 translationKey: "6dof-leo-simulator"
 slug: "6dof-leo-satellite-simulator"
 featureimagecaption: "General architecture of the 6-DoF simulator"
-tags: ["aerospace engineering", "orbital mechanics", "ADCS", "MATLAB", "Simulink", "satellite simulation"]
+tags: ["orbital mechanics", "ADCS", "MATLAB", "Simulink", "satellites", "simulation"]
 categories: ["projects"]
 ---
 

@@ -7,7 +7,7 @@ draft: false
 translationKey: "why-i-opened-this-space"
 slug: "por-que-abri-este-espacio"
 featureimagecaption: "Ingeniería aeroespacial, simulación y aprendizaje basado en proyectos"
-tags: ["ingeniería aeroespacial", "machine learning", "inteligencia artificial", "proyectos"]
+tags: ["machine learning", "inteligencia artificial"]
 categories: ["actualizaciones"]
 ---
 

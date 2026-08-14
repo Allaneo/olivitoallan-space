@@ -7,7 +7,7 @@ draft: false
 translationKey: "why-i-opened-this-space"
 slug: "why-i-opened-this-space"
 featureimagecaption: "Aerospace engineering, simulation, and learning through projects"
-tags: ["aerospace engineering", "machine learning", "artificial intelligence", "projects"]
+tags: ["machine learning", "artificial intelligence"]
 categories: ["updates"]
 ---
 
