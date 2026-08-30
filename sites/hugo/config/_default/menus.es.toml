@@ -7,3 +7,8 @@
   name = "Sobre mí"
   pageRef = "/page/about"
   weight = 4
+
+[[footer]]
+  name = "Licencia"
+  pageRef = "/page/license"
+  weight = 10

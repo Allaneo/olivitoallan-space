@@ -39,3 +39,8 @@
 #   name = "Categories"
 #   pageRef = "/categories"
 #   weight = 20
+
+[[footer]]
+  name = "License"
+  pageRef = "/page/license"
+  weight = 10
