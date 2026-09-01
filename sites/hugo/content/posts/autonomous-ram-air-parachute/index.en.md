@@ -2,7 +2,7 @@
 title: "CanSat: Bringing an egg back from space with a paraglider"
 summary: "How we navigated flexible-wing aerodynamics, deciphered literature nuances, deduced missing inlet angles from photos, engineered millimeter-precise Kevlar rigging, and ran drone descent tests to fulfill a demanding CanSat mission requirement."
 description: "A comprehensive technical deep dive into the aerodynamics, modeling, manufacturing, GNC, and field testing of an autonomous steerable ram-air parafoil for CanSat recovery."
-date: 2026-09-01T00:00:00-03:00
+date: 2026-09-01T08:00:00-03:00
 draft: false
 translationKey: "ram-air-parachute-design"
 slug: "bringing-an-egg-back-from-space-with-a-paraglider"

@@ -1,6 +1,6 @@
 baseURL = "https://olivitoallan.space/"
 buildDrafts = false
-buildFuture = true
+buildFuture = false
 
 [params]
   # gtm_id = "GTM-XXXXXXX"
