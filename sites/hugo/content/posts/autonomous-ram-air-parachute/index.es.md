@@ -2,7 +2,7 @@
 title: "CanSat: trayendo un huevo desde el espacio con un parapente"
 summary: "Cómo navegamos la aerodinámica de alas flexibles, desciframos sutilezas de la literatura, dedujimos ángulos de entrada a partir de fotos, calibramos suspentajes de Kevlar al milímetro y realizamos pruebas de caída con drones para cumplir con una exigente misión CanSat."
 description: "Un recorrido técnico completo sobre la aerodinámica, el modelado, la manufactura, el guiado (GNC) y los ensayos de vuelo de un paracaídas tipo ram-air autónomo para la recuperación de un CanSat."
-date: 2026-09-01T10:00:00-03:00
+date: 2026-09-01T00:00:00-03:00
 draft: false
 translationKey: "ram-air-parachute-design"
 slug: "trayendo-un-huevo-desde-el-espacio-con-un-parapente"
