@@ -5,9 +5,10 @@ description: "Understanding OpenAI's proposed Navier-Stokes breakthrough, smooth
 date: 2026-09-09T12:00:00-03:00
 draft: false
 translationKey: "openai-navier-stokes"
-slug: "openai-navier-stokes-millennium-problem"
+slug: "breaking-navier-stokes-how-openai-solved-a-millennium-prize-problem-in-100-hours"
+aliases: ["/posts/openai-navier-stokes-millennium-problem/"]
 showMath: true
-tags: ["AI", "fluid mechanics", "mathematics", "formal verification"]
+tags: ["AI", "mathematics", "fluid mechanics"]
 categories: ["news"]
 ---
 {{< katex >}}

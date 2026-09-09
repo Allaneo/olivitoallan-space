@@ -5,9 +5,10 @@ description: "El avance propuesto de OpenAI sobre Navier-Stokes: fuerzas suaves,
 date: 2026-09-09T12:00:00-03:00
 draft: false
 translationKey: "openai-navier-stokes"
-slug: "openai-navier-stokes-problema-del-milenio"
+slug: "rompiendo-navier-stokes-como-openai-resolvio-un-problema-del-milenio-en-100-horas"
+aliases: ["/es/posts/openai-navier-stokes-problema-del-milenio/"]
 showMath: true
-tags: ["IA", "mecánica de fluidos", "matemáticas", "verificación formal"]
+tags: ["IA", "matemáticas", "mecánica de fluidos"]
 categories: ["noticias"]
 ---
 {{< katex >}}
