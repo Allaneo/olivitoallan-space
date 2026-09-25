@@ -1,13 +1,13 @@
 ---
 title: "CanSat: Bringing an egg back from space with a paraglider"
 summary: "How we navigated flexible-wing aerodynamics, deciphered literature nuances, deduced missing inlet angles from photos, engineered millimeter-precise Kevlar rigging, and ran drone descent tests to fulfill a demanding CanSat mission requirement."
-description: "A comprehensive technical deep dive into the aerodynamics, modeling, manufacturing, GNC, and field testing of an autonomous steerable ram-air parafoil for CanSat recovery."
+description: "A technical account of the aerodynamics, modeling, manufacturing, guidance architecture, and field testing of a deployable ram-air parafoil for CanSat recovery."
 date: 2026-09-01T08:00:00-03:00
 draft: false
 translationKey: "ram-air-parachute-design"
 slug: "bringing-an-egg-back-from-space-with-a-paraglider"
 showMath: true
-featureimagecaption: "The complete journey from early aerodynamic iterations to a fully inflated, autonomous ram-air parafoil in flight"
+featureimagecaption: "The journey from early aerodynamic iterations to a fully inflated ram-air parafoil in flight"
 tags: ["aerodynamics", "paraglider", "ram-air parachute", "CanSat", "GNC", "MATLAB", "Simulink", "manufacturing"]
 categories: ["projects"]
 ---
@@ -16,7 +16,7 @@ categories: ["projects"]
 
 First, a quick clarification: we didn't actually go to outer space. 
 
-Our "space" was a suborbital sounding rocket reaching an apogee of around one kilometer. But when you are tasked with autonomously steering a fragile payload back to a precise landing zone and delivering an unboiled, raw grocery egg completely unbroken, one kilometer feels plenty high enough.
+Our "space" was a suborbital sounding rocket reaching an apogee of around one kilometer. But when you are tasked with autonomously steering a fragile payload back to a precise landing zone and delivering a raw egg intact, one kilometer feels plenty high enough.
 
 When the competition rules were published, one requirement defined our entire project: **the CanSat payload had to descend using an autonomous, steerable recovery system and deliver a raw egg from 2 meters above the ground.**
 
@@ -27,7 +27,7 @@ The mission brief split the recovery sequence into two distinct phases:
 
 Designing, building, and testing the container's passive parachute took just a few days of work. It was a straightforward flat octagonal chute with shroud lines cut to 1.25× the diameter.
 
-Fulfilling the steerable descent requirement, however, meant building an autonomous ram-air parafoil from scratch. That turned into a multi-month engineering journey through flexible-wing aerodynamics, custom MATLAB trim tools, photo forensics, sewing machine jams, millimeter-precise Kevlar rigging, and high-altitude drone descent tests.
+Fulfilling the steerable descent requirement, however, meant building a deployable ram-air parafoil from scratch. That turned into a multi-month engineering journey through flexible-wing aerodynamics, custom MATLAB trim tools, photo forensics, sewing machine jams, millimeter-precise Kevlar rigging, and drone descent tests.
 
 > *Note: This article focuses strictly on the technical design, modeling, manufacturing, and flight testing of the system. A companion post covering the broader organizational and personal learnings from this project is currently in the works and will follow soon.*
 
@@ -38,20 +38,20 @@ Fulfilling the steerable descent requirement, however, meant building an autonom
 When we started researching steerable flexible wings, we initially treated ram-air parachutes and paragliders as interchangeable concepts. They are not.
 
 <div style="max-width: 620px; margin: 24px auto; text-align: center;">
-  <img src="paraglider-vs-ram-air.jpg" alt="Paraglider vs Ram-Air Parachute in flight" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
+  <img src="paraglider-vs-ram-air.svg" alt="Diagram comparing a ground-launched paraglider with an air-deployed ram-air parachute" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
   <p style="font-size: 0.8rem; color: #64748b; margin-top: 8px;">
     <strong>Left</strong>: Foot-launched Paraglider (High AR, thin profile, under-surface inlets). 
     <strong>Right</strong>: Air-deployed Ram-Air Parachute (Low AR, thick profile, large forward-facing inlets).
   </p>
 </div>
 
-A paraglider is **ground-launched**. The pilot runs forward on a slope to inflate the cells with clean air before taking off. Because opening shock is negligible and glide performance is everything, paragliders feature high aspect ratios (AR ≈ 5–6), thin airfoils, and small inlets tucked underneath the lower surface.
+A paraglider is **ground-launched**. The pilot runs forward on a slope to inflate the cells with clean air before taking off. Because opening shock is negligible and glide performance is everything, paragliders feature high aspect ratios (AR ≈ 5 to 6), thin airfoils, and small inlets tucked underneath the lower surface.
 
 A ram-air parachute is **air-deployed**. It is released into free-fall at high descent rates. If you deploy a high-AR, thin paraglider into free-fall, the wingtips fold inward, the narrow bottom inlets starve of air, and the lines tangle before the canopy can inflate.
 
 Air-deployed canopies (documented in classic parachute literature by Knacke and Lingard) require a different design paradigm:
-- **Low Aspect Ratio (AR ≈ 1.8–2.2)** to ensure spanwise opening rigidity.
-- **Thick airfoils (~16–18%)** to maximize internal cell volume and pressurization.
+- **Low Aspect Ratio (AR ≈ 1.8 to 2.2)** to ensure spanwise opening rigidity.
+- **Thick airfoils (~16 to 18%)** to maximize internal cell volume and pressurization.
 - **Large, forward-facing leading-edge inlets** directly exposed to the oncoming relative airflow.
 
 ### Sizing the Inlets: Understanding Lingard's Regimes
@@ -77,7 +77,7 @@ We searched papers and technical manuals, but found no explicit values for the d
   </p>
 </div>
 
-By comparing the cutback geometry across multiple designs, we deduced a **45° diagonal cut**. This angle made physical sense with our expected relative velocity vector during cruise flight, allowing the oncoming airflow to enter the cells cleanly while preserving enough upper-surface chord to maintain lift generation over the suction peak.
+By comparing the cutback geometry across multiple designs, we selected a **45° diagonal cut** as an engineering estimate. It gave the inlet a forward-facing opening while preserving upper-surface chord, but we did not have enough test data to isolate the cut angle as the cause of improved deployment.
 
 ### The 18% Clark Y Profile
 Lingard frequently refers to the **Clark Y** airfoil, a historic profile with a flat lower surface that simplifies cutting and sewing fabric ribs.
@@ -125,7 +125,7 @@ At CanSat scale, the canopy accounts for only a fraction of the total system dra
   </div>
 </div>
 
-The significant parasite drag from the payload and structure limited our realistic glide ratio to around L/D ≈ 2–3, fixing our glide angle at:
+The significant parasite drag from the payload and structure limited our realistic glide ratio to around L/D ≈ 2 to 3, fixing our glide angle at:
 
 $$\gamma = -\arctan\left(\frac{1}{L/D}\right) \approx -18^\circ \text{ to } -26^\circ$$
 
@@ -135,7 +135,7 @@ $$V_a = \sqrt{\frac{2 m g}{\rho S \sqrt{C_L^2 + C_D^2}}}$$
 
 $$V_{\text{sink}} = V_a \sin(-\gamma)$$
 
-Balancing our total payload mass (m ≈ 554 g), canopy reference area (S = 0.53 m²), and total drag coefficient yielded an equilibrium airspeed Va ≈ 8 m/s and a vertical sink rate of **≈ 5 m/s**, landing cleanly within the **2 to 8 m/s mission requirement**.
+Balancing our total payload mass (m ≈ 554 g), canopy reference area (S = 0.53 m²), and total drag coefficient yielded a predicted equilibrium airspeed Va ≈ 8 m/s and a vertical sink rate of **≈ 5 m/s**, placing the modeled operating point within the **2 to 8 m/s mission requirement**.
 
 ### 2.2 Aerodynamic Coefficients & MATLAB Trim Analysis
 To evaluate equilibrium flight, we used **XFLR5** and **Flow5** to extract 3D aerodynamic lift, drag, and moment coefficients for the canopy.
@@ -162,7 +162,7 @@ The program yielded our nominal cruise operating point:
 - **Pitch Restoring Derivative (dCm/dα)**: Strongly negative, confirming static pitch stability.
 
 ### 2.3 Guidance Architecture & Spiral Divergence
-For autonomous navigation, we adopted a two-tier framework:
+For autonomous navigation, we designed a two-tier simulation framework:
 - **Outer Loop (3-DoF Guidance)**: Managed trajectory planning and waypoint tracking based on airspeed, flight path angle, and heading.
 - **Inner Loop (6-DoF Dynamics)**: Controlled servo brake line actuation using quaternions to avoid matrix singularities during attitude disturbances.
 
@@ -174,6 +174,8 @@ To counter this:
 - Bank angle was software-limited.
 - Turn rates were strictly bounded.
 - The GNC used **alternating figure-8 holding patterns** near waypoints instead of continuous circling.
+
+The physical test campaign described below validated deployment and stable glide. It did not validate closed-loop waypoint guidance or autonomous egg release, so those remained system-level objectives rather than demonstrated flight results.
 
 ---
 
@@ -230,7 +232,7 @@ This turned out to be a great example of how legacy requirements can trap a desi
 ## 4. Manufacturing & The Millimeter Rigging Protocol
 
 ### 4.1 Fabric, Thread & Patterns
-- **Low-Porosity Coated Ripstop Nylon**: Low air permeability is essential for ram-air canopies. If air leaks through the fabric, internal pressure drops and the profile deflates. We used PU/silicone-coated ripstop nylon (~40–50 g/m²).
+- **Low-Porosity Coated Ripstop Nylon**: Low air permeability is essential for ram-air canopies. If air leaks through the fabric, internal pressure drops and the profile deflates. We used PU/silicone-coated ripstop nylon (~40 to 50 g/m²).
 - **Paper Patterns & Assembly**: We printed full-scale CAD paper patterns with seam margins and alignment markers.
 - **The "Toile" (Tual)**: Before cutting expensive coated nylon, we sewed a complete prototype out of cheap scrap cloth (a *toile*). This caught seam allowance issues, clearance errors, and panel assembly order mistakes early.
 - **Thread & Needle**: We used high-tenacity Tex T-45 bonded nylon thread with **#10/70 ball-point needles**. Sharp needles can pierce and slice structural yarns in ripstop fabric; ball-point needles push between the weave fibers without cutting them.
@@ -277,10 +279,10 @@ To maintain millimeter precision across all lines, we executed a strict rigging 
 
 ## 5. Deployment: The D-Bag & Anti-Tangle Webbing Harness
 
-### The Zero-G Free-Fall Trap
+### The Slack-Line Free-Fall Trap
 We initially wondered if a Deployment Bag (D-Bag) was strictly necessary, hoping the canopy might deploy cleanly straight from the container. We were wrong.
 
-When a packed canopy is pushed out of an ejecting container into free-fall, the payload and canopy accelerate downward at the same rate. Without line tension, the lines go completely slack. The canopy tumbles through its own loose lines, risking not only severe entanglements, but a complete failure to inflate.
+When a packed canopy and payload are released together, both initially accelerate downward with little relative separation. Until aerodynamic drag creates enough differential motion, the suspension lines can remain slack. The canopy may then tumble through its own loose lines, risking severe entanglement or a complete failure to inflate.
 
 ### Thought-Out & Tested: Packing Inside the D-Bag
 Because of this free-fall dynamics trap, the exact way we packed the ram-air parachute inside the D-Bag was deliberately thought out, engineered, and rigorously tested through dozens of trial extractions.
@@ -290,7 +292,7 @@ We did not simply roll or stuff the fabric in. We developed a repeatable packing
 2. **Staged Line Stowing**: The suspension lines were stowed in neat S-folds using elastic retention bights, ensuring they would deploy progressively from the riser cascades upward to the canopy without tangling.
 3. **Sequential Line-First Extraction**: When the container drogue pulls the D-Bag, the suspension lines extract first and pull fully taut under payload inertia.
 4. **Tension-Triggered Canopy Release**: Only after the lines are under full tension does the mouth of the D-Bag open, releasing the canopy directly into clean airflow.
-5. **Center-Out Inflation**: The forward 45° inlets catch dynamic pressure and inflate symmetrically from the center outward within 1.0 to 1.5 seconds.
+5. **Center-Out Inflation**: The forward 45° inlets catch dynamic pressure and promote symmetric inflation from the center outward.
 
 Analyzing our high-speed footage confirmed this principle: every manual release that had inflated reliably was one where the lines were pulled taut before canopy release, exactly as our D-Bag staging protocol forced them to do.
 
@@ -318,15 +320,15 @@ We skipped wind tunnel testing for the parafoil. Testing a flexible, non-rigid, 
   </p>
 </div>
 
-The descent tests validated the core deployment and aerodynamic performance:
-- The D-Bag staged the opening cleanly, allowing the canopy to inflate symmetrically within **1.0 to 1.5 seconds** of line stretch.
-- The parafoil established a stable glide with a vertical sink rate of **≈ 5 m/s**, comfortably satisfying the **2 to 8 m/s descent requirement**.
+The descent tests validated the core deployment behavior and showed stable glide:
+- The D-Bag staged the opening cleanly, and the available footage indicated symmetric inflation roughly **1.0 to 1.5 seconds** after line stretch.
+- The observed glide was consistent with the **≈ 5 m/s** sink rate predicted by the trim analysis and with the **2 to 8 m/s descent requirement**. We did not perform a dedicated calibrated sink-rate measurement.
 
 ---
 
 ## 7. Final Thoughts
 
-When we started this project, there was no complete manual for building an autonomous micro ram-air parachute. The foundational academic papers provided high-level equations, but left out the critical practical details that make a flexible wing actually work: the exact leading-edge cut angle, the bridle geometry required to prevent outer cell collapse, and the staged deployment kinematics needed to inflate a soft wing out of zero-G free-fall without tangling.
+When we started this project, there was no complete manual for building a micro ram-air parachute. The foundational academic papers provided high-level equations, but left out critical practical details that make a flexible wing actually work: the leading-edge cut geometry, the bridle arrangement required to prevent outer cell collapse, and the staged deployment sequence needed to inflate a soft wing without tangling.
 
 We had to figure out nearly every critical parameter through direct deduction and experimentation:
 - Deducing the 45° inlet angle by pausing and analyzing skydiving footage frame-by-frame.
@@ -335,7 +337,7 @@ We had to figure out nearly every critical parameter through direct deduction an
 - Rescuing the entire build after a major center-of-gravity calculation mistake by questioning our own structural layout and moving the battery bay upward.
 - Engineering and validating a repeatable D-Bag packing sequence and anti-tangle riser harness through iterative drop tests.
 
-Despite incomplete literature data, calculation blunders, and tight deadlines, we ended up with a fully functional, deployable ram-air parachute that pressurized symmetrically, held its aerodynamic profile, and achieved stable glide descent from scratch. 
+Despite incomplete literature data, calculation blunders, and tight deadlines, we ended up with a deployable ram-air parachute that pressurized symmetrically, held its aerodynamic profile, and established stable glide in our drop tests. The broader autonomous guidance and egg-release mission remained beyond what this test campaign demonstrated.
 
 Taking fragmented theory, testing it against real physics, and solving each practical roadblock with our own hands in the workshop was the real achievement of this build.
 

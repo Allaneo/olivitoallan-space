@@ -1,13 +1,13 @@
 ---
 title: "CanSat: trayendo un huevo desde el espacio con un parapente"
 summary: "Cómo navegamos la aerodinámica de alas flexibles, desciframos sutilezas de la literatura, dedujimos ángulos de entrada a partir de fotos, calibramos suspentajes de Kevlar al milímetro y realizamos pruebas de caída con drones para cumplir con una exigente misión CanSat."
-description: "Un recorrido técnico completo sobre la aerodinámica, el modelado, la manufactura, el guiado (GNC) y los ensayos de vuelo de un paracaídas tipo ram-air autónomo para la recuperación de un CanSat."
+description: "Un recorrido técnico por la aerodinámica, el modelado, la manufactura, la arquitectura de guiado y los ensayos de un paracaídas ram-air desplegable para recuperar un CanSat."
 date: 2026-09-01T08:00:00-03:00
 draft: false
 translationKey: "ram-air-parachute-design"
 slug: "trayendo-un-huevo-desde-el-espacio-con-un-parapente"
 showMath: true
-featureimagecaption: "El recorrido completo: desde las primeras iteraciones aerodinámicas hasta el ala tipo ram-air completamente inflada y autónoma en vuelo"
+featureimagecaption: "El recorrido desde las primeras iteraciones aerodinámicas hasta el ala tipo ram-air completamente inflada en vuelo"
 tags: ["aerodinámica", "parapente", "paracaídas ram-air", "CanSat", "GNC", "MATLAB", "Simulink", "manufactura"]
 categories: ["proyectos"]
 ---
@@ -27,7 +27,7 @@ El pliego de la misión dividía la secuencia de descenso en dos etapas bien dif
 
 Diseñar, construir y ensayar el paracaídas pasivo del contenedor nos llevó apenas unos días de trabajo. Era un paracaídas octogonal plano clásico, con líneas de suspensión cortadas a 1.25× el diámetro.
 
-Cumplir con el descenso direccionable, en cambio, implicaba construir un ala tipo ram-air (parafoil) autónoma desde cero. Eso se convirtió en un viaje de ingeniería de varios meses a través de la aerodinámica de alas flexibles, herramientas de trimado a medida en MATLAB, análisis forense de fotografías, atascos en la máquina de coser, suspentajes de Kevlar con precisión milimétrica y ensayos de caída libre a gran altura con drones.
+Cumplir con el descenso direccionable, en cambio, implicaba construir un ala tipo ram-air (parafoil) desplegable desde cero. Eso se convirtió en un viaje de ingeniería de varios meses a través de la aerodinámica de alas flexibles, herramientas de trimado a medida en MATLAB, análisis forense de fotografías, atascos en la máquina de coser, suspentajes de Kevlar con precisión milimétrica y ensayos de caída con drones.
 
 > *Nota: Este artículo se enfoca estrictamente en el diseño técnico, el modelado, la fabricación y las pruebas de vuelo del sistema. Un artículo complementario que abordará los aprendizajes organizacionales y de gestión de equipo se publicará próximamente.*
 
@@ -38,7 +38,7 @@ Cumplir con el descenso direccionable, en cambio, implicaba construir un ala tip
 Cuando empezamos a investigar alas flexibles direccionables, al principio tratamos a los paracaídas tipo ram-air y a los parapentes como conceptos intercambiables. No lo son.
 
 <div style="max-width: 620px; margin: 24px auto; text-align: center;">
-  <img src="paraglider-vs-ram-air.jpg" alt="Parapente vs Paracaídas Ram-Air en vuelo" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
+  <img src="paraglider-vs-ram-air.svg" alt="Diagrama comparativo entre un parapente de despegue terrestre y un paracaídas ram-air desplegado en vuelo" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
   <p style="font-size: 0.8rem; color: #64748b; margin-top: 8px;">
     <strong>Izquierda</strong>: Parapente despegado a pie (alto alargamiento, perfil delgado, bocas inferiores). 
     <strong>Derecha</strong>: Paracaídas Ram-Air eyectado en el aire (bajo alargamiento, perfil grueso, grandes bocas frontales).
@@ -77,7 +77,7 @@ Revisamos papers y manuales técnicos, pero no encontramos valores explícitos p
   </p>
 </div>
 
-Comparando la geometría en múltiples diseños, dedujimos un **corte diagonal a 45°**. Este ángulo coincidía físicamente con el vector de velocidad relativa esperado en vuelo de crucero, permitiendo que el flujo de aire ingrese de forma limpia a las celdas y preservando al mismo tiempo suficiente cuerda en el extradós para sostener la succión y sustentación sobre el borde de ataque.
+Comparando la geometría en múltiples diseños, seleccionamos un **corte diagonal a 45°** como estimación de ingeniería. La geometría dejaba una entrada orientada hacia el flujo y preservaba cuerda en el extradós, pero no contábamos con datos suficientes para aislar el ángulo de corte como causa de la mejora en el despliegue.
 
 ### El Perfil Clark Y al 18%
 Lingard hace referencia frecuente al perfil **Clark Y**, una geometría histórica con un intradós plano que simplifica enormemente el trazado y la costura de las costillas de tela.
@@ -135,7 +135,7 @@ $$V_a = \sqrt{\frac{2 m g}{\rho S \sqrt{C_L^2 + C_D^2}}}$$
 
 $$V_{\text{sink}} = V_a \sin(-\gamma)$$
 
-Al equilibrar la masa total de la carga (m ≈ 554 g), la superficie de referencia del ala (S = 0.53 m²) y el coeficiente de resistencia total, obtuvimos una velocidad de crucero Va ≈ 8 m/s y una tasa de caída vertical de **≈ 5 m/s**, cumpliendo holgadamente el **requerimiento de misión de 2 a 8 m/s**.
+Al equilibrar la masa total de la carga (m ≈ 554 g), la superficie de referencia del ala (S = 0.53 m²) y el coeficiente de resistencia total, obtuvimos una velocidad de crucero predicha Va ≈ 8 m/s y una tasa de caída vertical de **≈ 5 m/s**, ubicando el punto de operación modelado dentro del **requerimiento de misión de 2 a 8 m/s**.
 
 ### 2.2 Coeficientes Aerodinámicos y Análisis de Trimado en MATLAB
 Para evaluar el vuelo en equilibrio, utilizamos **XFLR5** y **Flow5** para extraer las polares aerodinámicas 3D de sustentación, resistencia y momentos del ala.
@@ -162,7 +162,7 @@ El programa determinó nuestro punto nominal de operación en crucero:
 - **Derivada de restitución en cabeceo (dCm/dα)**: Fuertemente negativa, confirmando estabilidad estática longitudinal.
 
 ### 2.3 Arquitectura de Guiado y Divergencia Espiral
-Para la navegación autónoma adoptamos una estructura en dos lazos:
+Para la navegación autónoma diseñamos una arquitectura de simulación en dos lazos:
 - **Lazo Externo (Guiado 3-DoF)**: Administraba la planificación de trayectoria y el seguimiento de waypoints en base a velocidad de aire, ángulo de trayectoria y rumbo.
 - **Lazo Interno (Dinámica 6-DoF)**: Controlaba el accionamiento de los servos sobre las líneas de freno del borde de fuga, utilizando cuaterniones para evitar singularidades matemáticas durante perturbaciones de actitud.
 
@@ -174,6 +174,8 @@ Para evitarlo:
 - Se limitó por software el ángulo máximo de alabeo.
 - Se acotó estrictamente la tasa de viraje.
 - El sistema de guiado empleó **patrones de espera en figura de 8 alternada** cerca de los puntos de navegación en lugar de giros circulares continuos.
+
+La campaña física que se describe más adelante validó el despliegue y el planeo estable. No validó el guiado cerrado entre waypoints ni la liberación autónoma del huevo, por lo que esos objetivos quedaron a nivel de sistema y no como resultados demostrados en vuelo.
 
 ---
 
@@ -277,10 +279,10 @@ Para mantener una precisión milimétrica en todo el suspentaje, implementamos u
 
 ## 5. Despliegue: La Bolsa D-Bag y el Arnés Antienredos
 
-### La Trampa de la Caída Libre en Gravedad Cero Relativa
+### La Trampa de las Líneas Flojas en Caída Libre
 Al inicio nos preguntamos si era realmente necesaria una bolsa de despliegue (D-Bag), esperando que el ala pudiera salir directamente del contenedor. Nos equivocamos.
 
-Cuando una campana plegada es expulsada de un contenedor en caída libre, la carga y la tela aceleran hacia abajo al mismo ritmo. Sin tensión en las líneas, el suspentaje queda completamente flojo. El ala empieza a revolotear entre sus propias líneas sueltas, provocando enredos severos y fallas totales de inflado.
+Cuando una campana plegada y su carga se liberan juntas, ambas aceleran inicialmente hacia abajo con poca separación relativa. Hasta que la resistencia aerodinámica genera suficiente movimiento diferencial, el suspentaje puede permanecer flojo. El ala puede entonces revolotear entre sus propias líneas, provocando enredos severos o una falla total de inflado.
 
 ### Diseñado y Probado: El Plegado dentro del D-Bag
 Debido a esta trampa dinámica de la caída libre, la forma exacta en que plegamos el paracaídas ram-air dentro de la bolsa D-Bag fue pensada, diseñada y probada exhaustivamente en decenas de extracciones de ensayo.
@@ -290,7 +292,7 @@ No nos limitamos a enrollar o embutir la tela. Desarrollamos un procedimiento de
 2. **Estibado Escalonado del Suspentaje**: Las líneas de suspensión se recogían en bucles en "S" sujetados con bandas elásticas calibradas, garantizando que se liberaran progresivamente desde las bandas hacia la campana sin cruzarse.
 3. **Extracción Secuencial (Líneas Primero)**: Al abrir el contenedor, el paracaídas piloto extrae primero las líneas de suspensión, tensándolas completamente por la inercia de la carga útil.
 4. **Liberación del Ala por Tensión**: Solo cuando las líneas alcanzan su tensión total se abre la boca del D-Bag, liberando la campana directamente en el flujo de aire limpio.
-5. **Inflado desde el Centro hacia Afuera**: Las tomas frontales a 45° capturan la presión dinámica e inflan el ala de forma simétrica desde las celdas centrales hacia los extremos en 1.0 a 1.5 segundos.
+5. **Inflado desde el Centro hacia Afuera**: Las tomas frontales a 45° capturan la presión dinámica y favorecen un inflado simétrico desde las celdas centrales hacia los extremos.
 
 El análisis de nuestros videos en cámara lenta confirmó este principio: cada lanzamiento manual que infló correctamente fue aquel donde las líneas se tensaron por completo antes de liberar la tela, exactamente lo que nuestro protocolo de D-Bag forzaba a hacer mecánicamente.
 
@@ -318,15 +320,15 @@ Decidimos no realizar ensayos en túnel de viento para el ala flexible. Ensayar 
   </p>
 </div>
 
-Las pruebas de descenso validaron el rendimiento aerodinámico y de apertura:
-- El D-Bag secuenció la apertura de forma limpia, permitiendo que la campana se inflara simétricamente en **1.0 a 1.5 segundos** tras la tensión de líneas.
-- El ala flexible estableció un planeo estable con una tasa de descenso vertical de **≈ 5 m/s**, cumpliendo de forma consistente con el **requerimiento de 2 a 8 m/s**.
+Las pruebas de descenso validaron el comportamiento del despliegue y mostraron un planeo estable:
+- El D-Bag secuenció la apertura de forma limpia y el material de video disponible indicó un inflado simétrico aproximadamente **1.0 a 1.5 segundos** después de tensarse las líneas.
+- El planeo observado fue consistente con la tasa de descenso de **≈ 5 m/s** predicha por el análisis de trimado y con el **requerimiento de 2 a 8 m/s**. No realizamos una medición calibrada y específica de esa tasa de descenso.
 
 ---
 
 ## 7. Reflexiones Finales
 
-Cuando empezamos este proyecto, no existía un manual paso a paso para construir un paracaídas ram-air autónomo a microescala. Los papers académicos tradicionales aportaban ecuaciones de alto nivel, pero omitían los detalles prácticos que hacen que un ala de tela funcione en el mundo real: el ángulo exacto de corte en el borde de ataque, la geometría angular del suspentaje para evitar el colapso de las puntas y la cinemática de despliegue escalonado necesaria para abrir un ala blanda desde caída libre sin enredos.
+Cuando empezamos este proyecto, no existía un manual paso a paso para construir un paracaídas ram-air a microescala. Los papers académicos aportaban ecuaciones de alto nivel, pero omitían detalles prácticos que hacen que un ala de tela funcione en el mundo real: la geometría del corte en el borde de ataque, la disposición del suspentaje para evitar el colapso de las puntas y la secuencia de despliegue necesaria para abrir un ala blanda sin enredos.
 
 Tuvimos que deducir y experimentar casi cada parámetro crítico por cuenta propia:
 - Deducir el ángulo de entrada a 45° haciendo zoom y congelando videos de paracaidismo cuadro a cuadro.
@@ -335,7 +337,7 @@ Tuvimos que deducir y experimentar casi cada parámetro crítico por cuenta prop
 - Salvar el proyecto tras un error importante en el cálculo del centro de gravedad, cuestionando nuestra propia distribución estructural y subiendo la batería para no tener que coser un ala nueva.
 - Diseñar y validar un método de plegado en D-Bag y un arnés antienredos a fuerza de pruebas de caída iterativas.
 
-A pesar de la información incompleta en la literatura, los errores de cálculo sobre la marcha y los plazos ajustados, logramos un paracaídas ram-air funcional y desplegable que se presurizaba simétricamente, mantenía su perfil aerodinámico y conseguía un planeo estable desde cero.
+A pesar de la información incompleta en la literatura, los errores de cálculo sobre la marcha y los plazos ajustados, logramos un paracaídas ram-air desplegable que se presurizaba simétricamente, mantenía su perfil aerodinámico y establecía un planeo estable en nuestros ensayos de caída. La misión más amplia de guiado autónomo y liberación del huevo quedó fuera de lo que esta campaña de pruebas llegó a demostrar.
 
 Tomar teoría fragmentada, contrastarla contra la física real y resolver cada obstáculo práctico con nuestras propias manos en el taller fue el verdadero aprendizaje de este desarrollo.
 
