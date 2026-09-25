@@ -1,31 +1,31 @@
 ---
 title: "Lo que construir un CanSat me enseñó sobre ingeniería de sistemas"
-summary: "El parafoil era solo una parte del problema. Construir un CanSat me mostró cómo las interfaces, las decisiones, los ensayos, los cronogramas y la logística determinan si un sistema multidisciplinario realmente llega a integrarse."
-description: "Cinco aprendizajes de ingeniería de sistemas a partir del diseño, la integración y los ensayos de un CanSat con recuperación mediante parafoil direccionable."
+summary: "El paracaídas ram-air era solo una parte del problema. Construir un CanSat me mostró cómo las interfaces, las decisiones, los ensayos, los cronogramas y la logística determinan si un sistema multidisciplinario realmente llega a integrarse."
+description: "Cinco aprendizajes de ingeniería de sistemas a partir del diseño, la integración y los ensayos de un CanSat con recuperación mediante paracaídas ram-air direccionable."
 date: 2026-10-12T08:00:00-03:00
 draft: false
 translationKey: "cansat-lessons-learned"
 slug: "lo-que-construir-un-cansat-me-enseno-sobre-ingenieria-de-sistemas"
-featureimagecaption: "Nuestro equipo en el campo de lanzamiento de la CanSat Competition 2026, con el CanSat y su parafoil"
+featureimagecaption: "Nuestro equipo en el campo de lanzamiento de la CanSat Competition 2026, con el CanSat y su paracaídas"
 tags: ["CanSat", "ingeniería de sistemas", "gestión de proyectos", "ensayos", "integración"]
 categories: ["experiencias", "proyectos"]
 ---
 
-El parafoil era la parte más visible de nuestro CanSat. También era solo una parte del problema.
+El paracaídas ram-air era la parte más visible de nuestro CanSat. También era solo una parte del problema.
 
-![Nuestro equipo en el campo de lanzamiento de la CanSat Competition 2026, con el CanSat, su parafoil naranja y la bandera argentina](featured.jpg "Día de lanzamiento en la CanSat Competition 2026. El CanSat, su parafoil y las personas que tenían que hacerlos funcionar juntos.")
+![Nuestro equipo en el campo de lanzamiento de la CanSat Competition 2026, con el CanSat, su paracaídas naranja y la bandera argentina](featured.jpg "Día de lanzamiento en la CanSat Competition 2026. El CanSat, su paracaídas y las personas que tenían que hacerlos funcionar juntos.")
 
 La misión exigía que una carga del tamaño de una lata se separara de un cohete, desplegara un sistema de recuperación direccionable, navegara hacia un objetivo y liberara un huevo crudo cerca del suelo. Cualquiera de esas funciones podía fallar por una decisión tomada en otra parte del sistema.
 
-Mi trabajo se concentró en el diseño aerodinámico, el modelado, la fabricación y los ensayos físicos del parafoil. Eso me dejó directamente sobre varias interfaces: el ala dependía de la masa suspendida, el centro de gravedad, los puntos de unión estructural, los servos, la electrónica, la secuencia de despliegue y la lógica de guiado. Un cambio en cualquiera de ellos podía invalidar un cálculo o retrasar una prueba.
+Mi trabajo se concentró en el diseño aerodinámico, el modelado, la fabricación y los ensayos físicos del paracaídas. Eso me dejó directamente sobre varias interfaces: el ala dependía de la masa suspendida, el centro de gravedad, los puntos de unión estructural, los servos, la electrónica, la secuencia de despliegue y la lógica de guiado. Un cambio en cualquiera de ellos podía invalidar un cálculo o retrasar una prueba.
 
-En otro artículo conté [el desarrollo técnico del parafoil](/es/posts/trayendo-un-huevo-desde-el-espacio-con-un-parapente/). Este trata sobre la lección más amplia que me dejó el proyecto: la ingeniería de sistemas no es una etapa final de integración. Es el trabajo de mantener conectadas las decisiones desde el principio.
+En otro artículo conté [el desarrollo técnico del paracaídas](/es/posts/trayendo-un-huevo-desde-el-espacio-con-un-parapente/). Este trata sobre la lección más amplia que me dejó el proyecto: la ingeniería de sistemas no es una etapa final de integración. Es el trabajo de mantener conectadas las decisiones desde el principio.
 
 ## 1. Las interfaces importan más que los límites entre equipos
 
 Al comienzo dividimos el proyecto entre mecánica y aerodinámica, electrónica y software. La organización parecía lógica porque cada persona podía concentrarse en una disciplina conocida. El problema era que el CanSat no respetaba esas fronteras.
 
-El ángulo de calaje del parafoil dependía de la posición del centro de gravedad de la carga. Ese centro de gravedad dependía en gran medida de dónde estuvieran montadas la batería y la electrónica. Las cargas de mando influían en la selección de los servos, mientras que su geometría definía el recorrido disponible en las líneas de freno. Incluso un cambio en el chasis estructural podía modificar la resistencia aerodinámica y la condición de planeo en equilibrio.
+El ángulo de calaje del paracaídas dependía de la posición del centro de gravedad de la carga. Ese centro de gravedad dependía en gran medida de dónde estuvieran montadas la batería y la electrónica. Las cargas de mando influían en la selección de los servos, mientras que su geometría definía el recorrido disponible en las líneas de freno. Incluso un cambio en el chasis estructural podía modificar la resistencia aerodinámica y la condición de planeo en equilibrio.
 
 Las conversaciones puntuales resolvían preguntas aisladas, pero no mostraban la cadena completa de dependencias. Necesitábamos una vista explícita de las interfaces: qué esperaba cada subsistema de los demás, qué valores todavía eran supuestos y quién debía enterarse cuando alguno cambiaba.
 
@@ -33,7 +33,7 @@ Esto se volvió evidente después de fabricar la segunda campana. Descubrimos qu
 
 La lección no fue simplemente "hay que comunicarse más". Fue tratar los valores de interfaz como datos controlados de diseño, no como información informal que circula entre equipos.
 
-![Varios integrantes del equipo trabajando a la vez sobre el CanSat, con las líneas del parafoil saliendo de su base](packing-parafoil.jpg "Muchas manos sobre un mismo CanSat. Todos los subsistemas terminaron en el mismo volumen reducido.")
+![Varios integrantes del equipo trabajando a la vez sobre el CanSat, con las líneas del paracaídas saliendo de su base](packing-parafoil.jpg "Muchas manos sobre un mismo CanSat. Todos los subsistemas terminaron en el mismo volumen reducido.")
 
 ## 2. Las revisiones y los registros de decisiones preservan supuestos
 
@@ -51,7 +51,7 @@ Documentar bien no significaba registrar cada conversación. Significaba preserv
 
 ## 3. Los primeros ensayos deben aislar la incertidumbre
 
-Nuestro primer ensayo de caída del parafoil intentó reproducir demasiadas partes de la misión al mismo tiempo. Usamos una réplica del CanSat con su masa y geometría completas y liberamos todo el conjunto desde unos 20 metros.
+Nuestro primer ensayo de caída del paracaídas intentó reproducir demasiadas partes de la misión al mismo tiempo. Usamos una réplica del CanSat con su masa y geometría completas y liberamos todo el conjunto desde unos 20 metros.
 
 Cayó casi como una piedra.
 
@@ -73,7 +73,7 @@ Si un solo elemento llegaba tarde, toda la ventana de ensayo se desplazaba. Nos 
 
 Eso cambió mi forma de entender un cronograma. Una lista de fechas individuales no alcanza. Las fechas importantes son aquellas en las que varios subsistemas deben converger para responder una pregunta a nivel de sistema. Esos hitos de integración necesitan margen para encontrar un problema, modificar el diseño y volver a probar.
 
-![El equipo integrando el CanSat bajo la carpa de la competencia, con el parafoil naranja extendido sobre la mesa](integration-tent.jpg "Integración bajo la carpa de la competencia. Estructura, electrónica y parafoil tenían que estar listos en la misma mesa, al mismo tiempo.")
+![El equipo integrando el CanSat bajo la carpa de la competencia, con el paracaídas naranja extendido sobre la mesa](integration-tent.jpg "Integración bajo la carpa de la competencia. Estructura, electrónica y paracaídas tenían que estar listos en la misma mesa, al mismo tiempo.")
 
 Nuestras pocas oportunidades de ensayo en campo hicieron que ese margen se volviera especialmente visible. Una prueba exitosa dependía de mucho más que tener el hardware teóricamente listo en un documento.
 
@@ -95,6 +95,6 @@ Nada de eso reemplaza al análisis. Define si el análisis puede convertirse en 
 
 El proyecto me enseñó más que dimensionar y fabricar una campana ram-air. Me enseñó a buscar los supuestos que cruzan los límites entre subsistemas, preservar el razonamiento detrás de las decisiones, diseñar ensayos alrededor de la incertidumbre, organizar el cronograma alrededor de la integración y tratar las operaciones como parte del sistema.
 
-No demostramos todos los objetivos de la misión autónoma original. Sí construimos y probamos un parafoil desplegable que se inflaba simétricamente y establecía un planeo estable, y entendimos con precisión qué partes de nuestro proceso lo hicieron posible o lo volvieron más difícil.
+No demostramos todos los objetivos de la misión autónoma original. Sí construimos y probamos un paracaídas desplegable que se inflaba simétricamente y establecía un planeo estable, y entendimos con precisión qué partes de nuestro proceso lo hicieron posible o lo volvieron más difícil.
 
 Eso es lo que llevaría a otro proyecto aeroespacial: no la promesa de que el primer diseño va a funcionar, sino una mejor forma de descubrir por qué no funciona, coordinar la corrección y convertir el siguiente ensayo en evidencia útil.
