@@ -38,7 +38,7 @@ Fulfilling the steerable descent requirement, however, meant building a deployab
 When we started researching steerable flexible wings, we initially treated ram-air parachutes and paragliders as interchangeable concepts. They are not.
 
 <div style="max-width: 620px; margin: 24px auto; text-align: center;">
-  <img src="paraglider-vs-ram-air.svg" alt="Diagram comparing a ground-launched paraglider with an air-deployed ram-air parachute" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
+  <img src="paraglider-vs-ram-air.jpg" alt="Paraglider vs Ram-Air Parachute in flight" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
   <p style="font-size: 0.8rem; color: #64748b; margin-top: 8px;">
     <strong>Left</strong>: Foot-launched Paraglider (High AR, thin profile, under-surface inlets). 
     <strong>Right</strong>: Air-deployed Ram-Air Parachute (Low AR, thick profile, large forward-facing inlets).

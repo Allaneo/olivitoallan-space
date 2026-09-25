@@ -38,7 +38,7 @@ Cumplir con el descenso direccionable, en cambio, implicaba construir un ala tip
 Cuando empezamos a investigar alas flexibles direccionables, al principio tratamos a los paracaídas tipo ram-air y a los parapentes como conceptos intercambiables. No lo son.
 
 <div style="max-width: 620px; margin: 24px auto; text-align: center;">
-  <img src="paraglider-vs-ram-air.svg" alt="Diagrama comparativo entre un parapente de despegue terrestre y un paracaídas ram-air desplegado en vuelo" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
+  <img src="paraglider-vs-ram-air.jpg" alt="Parapente vs Paracaídas Ram-Air en vuelo" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" />
   <p style="font-size: 0.8rem; color: #64748b; margin-top: 8px;">
     <strong>Izquierda</strong>: Parapente despegado a pie (alto alargamiento, perfil delgado, bocas inferiores). 
     <strong>Derecha</strong>: Paracaídas Ram-Air eyectado en el aire (bajo alargamiento, perfil grueso, grandes bocas frontales).
